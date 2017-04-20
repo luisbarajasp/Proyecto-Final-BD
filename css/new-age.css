@@ -215,10 +215,15 @@ header .col-sm-5{
   height: 100vh;
   overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
   position: relative;
   background: transparent;
+}
+@media (max-width: 767px){
+    .flex-container {
+      width: 100vw;
+      height: 80vh;
+    }
 }
 .flex-container::before {
   content: '';
