@@ -32,7 +32,8 @@ a {
 }
 a:hover,
 a:focus {
-  color: #fcbd20;
+  color: #CE0067;
+  text-decoration: none;
 }
 hr {
   max-width: 100px;
@@ -1264,10 +1265,38 @@ section.features .feature-item i {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+section.features .link-to-lightbox{
+    display: block;
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+}
+
+section.features .link-to-lightbox:hover{
+    text-decoration: none;
+}
+
+section.features .link-to-lightbox:focus{
+}
+
+section.features .link-to-lightbox:hover > .feature-item{
+    background: -webkit-linear-gradient(to left, #7b4397, #dc2430);
+    background: linear-gradient(to left, #7b4397, #dc2430);
+    color: white;
+}
+
+section.features .link-to-lightbox:hover > .feature-item i{
+    background: transparent;
+    color: white;
+    -webkit-text-fill-color: white;
+
+}
+
 @media (min-width: 992px) {
   section.features .device-container,
   section.features .feature-item {
     max-width: none;
+    width: 60%;
   }
 }
 section.cta {
@@ -1277,7 +1306,7 @@ section.cta {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/bg-cta.jpg');
+  background-image: url('../img/bg-cta.png');
   padding: 250px 0;
 }
 section.cta .cta-content {
@@ -1289,11 +1318,17 @@ section.cta .cta-content h2 {
   margin-bottom: 25px;
   color: white;
   max-width: 450px;
-  font-size: 50px;
+  font-size: 30px;
+}
+section.cta .cta-content p{
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: white;
 }
 @media (min-width: 768px) {
   section.cta .cta-content h2 {
-    font-size: 80px;
+    font-size: 50px;
   }
 }
 section.cta .overlay {
@@ -1350,9 +1385,14 @@ footer {
   color: rgba(255, 255, 255, 0.3);
   text-align: center;
 }
+footer img{
+    width: 200px;
+    height: auto;
+    margin: 20px 0;
+}
 footer p {
   font-size: 12px;
-  margin: 0;
+  margin: 10px 0;
 }
 footer ul {
   margin-bottom: 0;
