@@ -432,3 +432,53 @@ table.dataTable thead .sorting:after {
     border-left-width: 0;
   }
 }
+#page-wrapper.add .form-links{
+    margin-top: 20px;
+}
+#page-wrapper.add .form-link{
+    height: 50px;
+    text-align: center;
+}
+#page-wrapper.add .form-link a{
+    font-size: 16px;
+    display: block;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    line-height: 100%;
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    color: #337ab7;
+}
+#page-wrapper.add .form-link a:hover{
+    color: #23527c;
+    text-decoration: underline;
+}
+#page-wrapper.add .form-link.active a{
+    background-color: #dddddd;
+    cursor: default;
+    pointer-events: none;
+}
+#page-wrapper.add .form-link a p{
+    height: 100%;
+    width: 100%;
+    line-height: 50px;
+    margin: 0;
+}
+#page-wrapper.add .panel-form{
+    display: none;
+}
+#page-wrapper.add .panel-form label.has-error{
+    font-weight: 200;
+}
+#page-wrapper.add .panel-form .form-group.has-error label{
+    color: #a94442;
+}
+#page-wrapper.add .panel-form .form-group.has-success label{
+    color: #3c763d;
+}
+@media (max-width: 767px){
+    #page-wrapper.add .forms{
+        margin-top: 20px;
+    }
+}

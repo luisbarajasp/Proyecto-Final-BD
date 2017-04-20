@@ -1341,6 +1341,7 @@ section.cta .overlay {
 }
 section.contact {
   text-align: center;
+  padding-top: 0;
 }
 section.contact h2 {
   margin-top: 0;
