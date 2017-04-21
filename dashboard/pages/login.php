@@ -1,3 +1,7 @@
+<?php 
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,16 +43,16 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Please Sign In</h3>
+                        <h3 class="panel-title">Inicia Sesion</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form role="form" method="post" action="login.php">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <input class="form-control" placeholder="Usuario" name="usuario" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
@@ -56,7 +60,7 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                                <button type="submit" class="btn btn-primary btn-block btn-large" name="login">Login</button>
                             </fieldset>
                         </form>
                     </div>
@@ -80,3 +84,37 @@
 </body>
 
 </html>
+
+
+<?php 
+
+include("../functions/functions.php"); 
+	
+	if(isset($_POST['login'])){
+	
+		$usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
+		$pass = mysqli_real_escape_string($enlace, $_POST['password']);
+	
+	$sel_user = "select * from admin where usuario='$usuario' AND contrasena='$pass'";
+	
+	$run_user = mysqli_query($enlace, $sel_user); 
+	
+	 $check_user = mysqli_num_rows($run_user); 
+	
+	if($check_user==1){
+	
+	$_SESSION['usuario']=$usuario; 
+	
+	echo "<script>window.open('index.php?logged_in=You have successfully Logged in!','_self')</script>";
+	
+	}
+	else {
+	
+	echo "<script>alert('El usuario y la contraseña no son validos')</script>";
+	
+	}
+	
+	
+	}
+	
+?>

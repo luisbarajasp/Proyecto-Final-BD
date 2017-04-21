@@ -3,6 +3,11 @@
 session_start();
 include("../functions/functions.php");
 
+    if(!isset($_SESSION['usuario'])){
+
+        echo "<script>window.open('login.php?not_admin=You are not an Admin!','_self')</script>";
+    }
+    else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +73,7 @@ include("../functions/functions.php");
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ajustes</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -466,3 +471,6 @@ include("../functions/functions.php");
     }
 
     ?>
+    
+    <?php } ?>
+    
