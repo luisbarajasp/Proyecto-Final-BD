@@ -1,3 +1,15 @@
+<?php 
+
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
+        
+        $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
+            if($enlace)
+                echo"Conexion exitosa!!"."<br>";
+            else  
+                die ("no hay conexion");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -201,7 +213,7 @@
                     <div class="panel panel-default panel-form" id="cliente">
                         <div class="panel-body">
                             <div class="row">
-                                <form role="form">
+                                <form role="form"  method = "post">
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -234,13 +246,13 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>RFC</label>
-                                                <input class="form-control" name="rfc" type="text" required>
+                                                <input class="form-control" name="RFC" type="text" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
                                         <div class="col-lg-12">
-                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <button type="submit" name ="insertCliente" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -253,7 +265,7 @@
                     <div class="panel panel-default panel-form" id="mueble">
                         <div class="panel-body">
                             <div class="row">
-                                <form role="form">
+                                <form role="form"  method = "post">
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -290,19 +302,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="col-lg-6">
+                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Status</label>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" value="disponible" name="status" checked="checked">Disponible
-                                                    </label>
-                                                </div>
-                                                <div class="radio">
-                                                    <label>
-                                                        <input type="radio" value="rentado" name="status">Rentado
-                                                    </label>
-                                                </div>
+                                                <label>Cantidad</label>
+                                                <input class="form-control" name="cantidad" type="number" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -315,7 +318,7 @@
 
                                     <div class="col-xs-12">
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <button type="submit" name ="insertMueble" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -327,7 +330,7 @@
                     <div class="panel panel-default panel-form" id="bodega">
                         <div class="panel-body">
                             <div class="row">
-                                <form role="form">
+                                <form role="form" method = "post">
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -344,7 +347,7 @@
                                     </div>
                                     <div class="col-xs-12">
                                         <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <button type="submit" name ="insertBodega" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -405,3 +408,67 @@
 </body>
 
 </html>
+
+<?php
+    if(isset($_POST['insertCliente'])){
+		$nombre =$_POST['nombre'];
+        $email= $_POST['email'];
+        $direccion = $_POST['direccion'];
+        $telefono = $_POST['telefono'];
+        $RFC = $_POST['RFC'];
+        
+        $tupla = "INSERT INTO `cliente` (`noCliente`, `nombre`, `email`, `direccion`, `telefono`, `RFC`) VALUES (NULL, '$nombre', '$email', '$direccion', '$telefono', '$RFC')";
+        
+        $insert = mysqli_query($enlace, $tupla);
+        
+        if($insert){
+            echo "<script>alert('Caliente añadido!')</script>";
+            echo "<script>window.open('add.php', '_self')</script>";
+        }
+        else{
+            echo "<script>$tupla</script>";
+        }
+    }
+
+    if(isset($_POST['insertMueble'])){
+		$modelo = $_POST['modelo'];
+        $categoria = $_POST['categoria'];
+        $tipo = $_POST['tipo'];
+        $costo = $_POST['costo'];
+        $descripcion = $_POST['descripcion'];
+        $cantidad = $_POST['cantidad'];
+        
+        
+        $tupla = "INSERT INTO `mueble` (`noMueble`, `modelo`, `categoria`, `tipo`, `costo`, `fecha`, `descripcion`, `cantidad`) VALUES (NULL, '$modelo', '$categoria', '$tipo', '$costo', NULL , '$descripcion', '$cantidad')";
+        
+        $insert = mysqli_query($enlace, $tupla);
+        
+        if($insert){
+            echo "<script>alert('Mueble añadido!')</script>";
+            echo "<script>window.open('add.php', '_self')</script>";
+        }
+          else{
+            echo "<script>alert('Error!')</script>";
+           echo  "<script>alert($tupla)</script>";
+        }
+    }
+
+        if(isset($_POST['insertBodega'])){
+        $nombre =$_POST['nombre'];
+		$ubicacion =$_POST['direccion'];
+        
+        $tupla = "INSERT INTO `bodega` (`NoBodega`, `nombre`, `ubicacion`) VALUES (NULL, '$nombre', '$ubicacion')";
+        
+        $insert = mysqli_query($enlace, $tupla);
+        
+        if($insert){
+            echo "<script>alert('Bodega añadida!')</script>";
+            
+        }
+              else{
+                   echo "<script>alert('Error!')</script>";
+            echo "<script>$tupla</script>";
+        }
+    }
+
+    ?>
