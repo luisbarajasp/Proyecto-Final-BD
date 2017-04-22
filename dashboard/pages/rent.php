@@ -56,29 +56,29 @@ include("../functions/functions.php");
         <div id="page-wrapper" class="add">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Añadir Registro</h1>
+                    <h1 class="page-header">Nueva Renta</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
                 <div class="col-xs-12 form-links">
-                    <div class="col-sm-4 col-xs-12 form-link">
-                        <a href="#cliente"><p>Cliente</p></a>
+                    <div class="col-sm-6 col-xs-12 form-link">
+                        <a href="#new"><p>Nuevo Cliente</p></a>
                     </div>
-                    <div class="col-sm-4 col-xs-12 form-link">
-                        <a href="#mueble"><p>Mueble</p></a>
-                    </div>
-                    <div class="col-sm-4 col-xs-12 form-link">
-                        <a href="#bodega"><p>Bodega</p></a>
+                    <div class="col-sm-6 col-xs-12 form-link">
+                        <a href="#existent"><p>Cliente Existente</p></a>
                     </div>
                 </div>
             </div>
             <div class="row forms">
                 <div class="col-lg-12">
-                    <div class="panel panel-default panel-form" id="cliente">
+                    <div class="panel panel-default panel-form" id="new">
                         <div class="panel-body">
                             <div class="row">
                                 <form role="form"  method = "post">
+                                    <div class="col-lg-12">
+                                        <h2>Datos del cliente</h2>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -115,9 +115,57 @@ include("../functions/functions.php");
                                             </div>
                                         </div>
                                     </div>
+                                    <hr>
+                                    <div class="col-lg-12">
+                                        <h2>Datos de la renta</h2>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Mueble</label>
+                                                <select class="form-control" name="noMueble" required>
+                                                    <option value="">--</option>
+                                                    <?php
+
+                                                        global $enlace;
+
+                                                        $mueble = "select * from mueble";
+
+                                                        $query = mysqli_query($enlace, $mueble);
+
+                                                        while ($tupla=mysqli_fetch_array($query)){
+
+                                                            $noMueble = $tupla['noMueble'];
+                                                            $modelo = $tupla['modelo'];
+                                                            $categoria = $tupla['categoria'];
+
+                                                            echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+
+                                                        }
+
+                                                     ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Cantidad</label>
+                                                <input class="form-control" name="cantidad" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Precio</label>
+                                                <input class="form-control" name="precio" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <div class="col-xs-12">
                                         <div class="col-lg-12">
-                                            <button type="submit" name ="insertCliente" class="btn btn-default">Guardar</button>
+                                            <button type="submit" name ="insertRentClient" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -127,7 +175,7 @@ include("../functions/functions.php");
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="panel panel-default panel-form" id="mueble">
+                    <div class="panel panel-default panel-form" id="existent">
                         <div class="panel-body">
                             <div class="row">
                                 <form role="form"  method = "post">
@@ -192,35 +240,7 @@ include("../functions/functions.php");
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <div class="panel panel-default panel-form" id="bodega">
-                        <div class="panel-body">
-                            <div class="row">
-                                <form role="form" method = "post">
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Nombre</label>
-                                                <input class="form-control" name="nombre" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Dirección</label>
-                                                <input class="form-control" name="direccion" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <button type="submit" name ="insertBodega" class="btn btn-default">Guardar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
+
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -275,7 +295,7 @@ include("../functions/functions.php");
 </html>
 
 <?php
-    if(isset($_POST['insertCliente'])){
+    if(isset($_POST['insertRentClient'])){
 		$nombre =$_POST['nombre'];
         $email= $_POST['email'];
         $direccion = $_POST['direccion'];
@@ -287,10 +307,24 @@ include("../functions/functions.php");
         $insert = mysqli_query($enlace, $tupla);
 
         if($insert){
-            echo "<div class='alert alert-success' role='alert'>Cliente Añadido!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            $noCliente = mysqli_insert_id($enlace);
+            $noMueble = $_POST['noMueble'];
+            $cantidad = $_POST['cantidad'];
+            $precio = $_POST['precio'];
+            $created_at = date("Y-m-d H:i:s");
+
+            $tupla = "INSERT INTO `mueble_cliente` (`noCliente`, `noMueble`, `inicio`, `fin`, `precio`, `cantidadRentada`) VALUES ('$noCliente', '$noMueble', '$created_at', NULL, '$precio', '$cantidad')";
+
+            $insert = mysqli_query($enlace, $tupla);
+
+            if($insert){
+                echo "<div class='alert alert-success' role='alert'>Cliente y renta añadidos!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }else{
+                echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
         }
         else{
-            echo "<div class='alert alert-danger' role='alert'>No se pudo insertar el cliente. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            echo "<div class='alert alert-danger' role='alert'>No se pudo insertar el cliente ni la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         }
     }
 

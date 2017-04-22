@@ -51,6 +51,9 @@
                     <a href="add.php"><i class="fa fa-plus fa-fw"></i> Añadir</a>
                 </li>
                 <li>
+                    <a href="rent.php"><i class="fa fa-bookmark fa-fw"></i> Nueva Renta</a>
+                </li>
+                <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>

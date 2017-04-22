@@ -8,6 +8,8 @@
         }else{
             die ("no hay conexion");
         }
+    // Establecer la zona horaria
+    date_default_timezone_set('America/Mexico_City');
 //Gets
 function getMuebles(){
 
