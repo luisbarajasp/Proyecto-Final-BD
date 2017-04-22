@@ -182,20 +182,55 @@ include("../functions/functions.php");
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Modelo</label>
-                                                <input class="form-control" name="modelo" type="text" required>
+                                                <label>Cliente</label>
+                                                <select class="form-control" name="noCliente" required>
+                                                    <option value="">--</option>
+                                                    <?php
+
+                                                        global $enlace;
+
+                                                        $cliente = "SELECT * FROM `cliente`";
+
+                                                        $query = mysqli_query($enlace, $cliente);
+
+                                                        while ($tupla=mysqli_fetch_array($query)){
+
+                                                            $noCliente = $tupla['noCliente'];
+                                                            $nombre = $tupla['nombre'];
+                                                            $email= $tupla['email'];
+
+                                                            echo "<option value='$noCliente'>id: $noCliente / nombre: $nombre / email: $email</option>";
+
+                                                        }
+
+                                                     ?>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Categoria</label>
-                                                <select class="form-control" name="categoria" required>
+                                                <label>Mueble</label>
+                                                <select class="form-control" name="noMueble" required>
                                                     <option value="">--</option>
-                                                    <option value="recamara">Recámara</option>
-                                                    <option value="sala">Sala</option>
-                                                    <option value="comedor">Comedor</option>
-                                                    <option value="blancos">Blancos</option>
-                                                    <option value="varios">Varios</option>
+                                                    <?php
+
+                                                        global $enlace;
+
+                                                        $mueble = "select * from mueble";
+
+                                                        $query = mysqli_query($enlace, $mueble);
+
+                                                        while ($tupla=mysqli_fetch_array($query)){
+
+                                                            $noMueble = $tupla['noMueble'];
+                                                            $modelo = $tupla['modelo'];
+                                                            $categoria = $tupla['categoria'];
+
+                                                            echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+
+                                                        }
+
+                                                     ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -203,35 +238,21 @@ include("../functions/functions.php");
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Tipo de mueble</label>
-                                                <input class="form-control" name="tipo" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Costo</label>
-                                                <input class="form-control" name="costo" type="number" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                         <div class="col-lg-6">
-                                            <div class="form-group">
                                                 <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad" type="number" required>
+                                                <input class="form-control" name="cantidad" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Descripción</label>
-                                                <textarea class="form-control" name="descripcion" style="max-width:100%"></textarea>
+                                                <label>Precio</label>
+                                                <input class="form-control" name="precio" required>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-xs-12">
                                         <div class="col-xs-12">
-                                            <button type="submit" name ="insertMueble" class="btn btn-default">Guardar</button>
+                                            <button type="submit" name ="insertRent" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -328,43 +349,24 @@ include("../functions/functions.php");
         }
     }
 
-    if(isset($_POST['insertMueble'])){
-		$modelo = $_POST['modelo'];
-        $categoria = $_POST['categoria'];
-        $tipo = $_POST['tipo'];
-        $costo = $_POST['costo'];
-        $descripcion = $_POST['descripcion'];
+    if(isset($_POST['insertRent'])){
+        $noCliente = $_POST['noCliente'];
+        $noMueble = $_POST['noMueble'];
         $cantidad = $_POST['cantidad'];
+        $precio = $_POST['precio'];
+        $created_at = date("Y-m-d H:i:s");
 
-
-        $tupla = "INSERT INTO `mueble` (`noMueble`, `modelo`, `categoria`, `tipo`, `costo`, `fecha`, `descripcion`, `cantidad`) VALUES (NULL, '$modelo', '$categoria', '$tipo', '$costo', NULL , '$descripcion', '$cantidad')";
-
-        $insert = mysqli_query($enlace, $tupla);
-
-        if($insert){
-            echo "<div class='alert alert-success' role='alert'>Mueble Añadido!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-        }
-          else{
-              echo "<div class='alert alert-danger' role='alert'>No se pudo insertar el mueble. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-        }
-    }
-
-    if(isset($_POST['insertBodega'])){
-        $nombre =$_POST['nombre'];
-		$ubicacion =$_POST['direccion'];
-
-        $tupla = "INSERT INTO `bodega` (`NoBodega`, `nombre`, `ubicacion`) VALUES (NULL, '$nombre', '$ubicacion')";
+        $tupla = "INSERT INTO `mueble_cliente` (`noCliente`, `noMueble`, `inicio`, `fin`, `precio`, `cantidadRentada`) VALUES ('$noCliente', '$noMueble', '$created_at', NULL, '$precio', '$cantidad')";
 
         $insert = mysqli_query($enlace, $tupla);
 
         if($insert){
-            echo "<div class='alert alert-success' role='alert'>Bodega Añadida!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-        }
-          else{
-              echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la bodega. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            echo "<div class='alert alert-success' role='alert'>Renta añadida!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        }else{
+            echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         }
     }
 
 ?>
 
-    <?php } ?>
+<?php } ?>

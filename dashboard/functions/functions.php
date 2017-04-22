@@ -36,7 +36,7 @@ function getMuebles(){
 	}
 }
 
-function getCliente(){
+function getClientes(){
 
 	global $enlace;
 
@@ -52,19 +52,6 @@ function getCliente(){
         $direccion = $tupla['direccion'];
         $telefono = $tupla['telefono'];
         $RFC = $tupla['RFC'];
-	/*
-	echo "
-				<div id='single_product'>
-
-					<h3>$nombre</h3>
-
-					<p><b> Nombre:  $email </b></p>
-
-				</div>
-
-
-		";
-	*/
 
 	}
 
