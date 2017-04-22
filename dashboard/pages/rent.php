@@ -323,7 +323,7 @@ include("../functions/functions.php");
             if($insert){
                 echo "<div class='alert alert-success' role='alert'>Cliente y renta añadidos!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             }else{
-                echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta pero el cliente sí. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             }
         }
         else{

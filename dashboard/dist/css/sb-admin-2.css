@@ -475,6 +475,9 @@ table.dataTable thead .sorting:after {
 #page-wrapper.add .panel-form{
     display: none;
 }
+#page-wrapper.add .link-form{
+    display: none;
+}
 #page-wrapper.add .panel-form label.has-error{
     font-weight: 200;
 }

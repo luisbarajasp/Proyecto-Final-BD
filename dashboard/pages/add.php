@@ -127,10 +127,42 @@ include("../functions/functions.php");
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="panel panel-default panel-form" id="mueble">
+                    <!-- Options to mueble -->
+                    <div class="row link-form" id="mueble">
+                        <div class="col-xs-12 form-links">
+                            <div class="col-sm-6 col-xs-12 form-link anidado">
+                                <a href="#new_bodega"><p>Nueva Bodega</p></a>
+                            </div>
+                            <div class="col-sm-6 col-xs-12 form-link anidado">
+                                <a href="#existent_bodega"><p>Bodega Existente</p></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default panel-form" id="new_bodega">
                         <div class="panel-body">
                             <div class="row">
                                 <form role="form"  method = "post">
+                                    <div class="col-lg-12">
+                                        <h2>Datos de la bodega</h2>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input class="form-control" name="nombre" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Dirección</label>
+                                                <input class="form-control" name="direccion" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <h2>Datos del mueble</h2>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -173,6 +205,96 @@ include("../functions/functions.php");
                                                 <input class="form-control" name="cantidad" type="number" required>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Descripción</label>
+                                                <textarea class="form-control" name="descripcion" style="max-width:100%"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12">
+                                            <button type="submit" name ="insertMuebleBodega" class="btn btn-default">Guardar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <div class="panel panel-default panel-form" id="existent_bodega">
+                        <div class="panel-body">
+                            <div class="row">
+                                <form role="form"  method = "post">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Bodega</label>
+                                                <select class="form-control" name="noBodega" required>
+                                                    <option value="">--</option>
+                                                    <?php
+
+                                                        $bodegas = getBodegas();
+
+                                                        foreach ($bodegas as $bodega) {
+                                                            $noBodega = $bodega['NoBodega'];
+                                                            $nombre = $bodega['nombre'];
+
+                                                            echo "<option value='$noBodega'>$nombre</option>";
+                                                        }
+
+                                                     ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Modelo</label>
+                                                <input class="form-control" name="modelo" type="text" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Categoria</label>
+                                                <select class="form-control" name="categoria" required>
+                                                    <option value="">--</option>
+                                                    <option value="recamara">Recámara</option>
+                                                    <option value="sala">Sala</option>
+                                                    <option value="comedor">Comedor</option>
+                                                    <option value="blancos">Blancos</option>
+                                                    <option value="varios">Varios</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Tipo de mueble</label>
+                                                <input class="form-control" name="tipo" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Costo</label>
+                                                <input class="form-control" name="costo" type="number" required>
+                                            </div>
+                                        </div>
+                                         <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Cantidad</label>
+                                                <input class="form-control" name="cantidad" type="number" required>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Descripción</label>
@@ -250,9 +372,16 @@ include("../functions/functions.php");
         $(function(){
             $('.form-link').on('click',function(){
                 id = $(this).find('a').attr("href");
-                $('.form-link').removeClass('active');
-                $(this).addClass('active');
                 $('.panel-form').hide();
+                if(!($(this).hasClass('anidado'))){
+                    $('.form-link').removeClass('active');
+                    $('.link-form').hide();
+                }else{
+                    $('.form-link.anidado').removeClass('active');
+
+                }
+                $(this).addClass('active');
+
                 $(id).show();
             });
             $('form').each(function(){
@@ -294,6 +423,41 @@ include("../functions/functions.php");
         }
     }
 
+    if(isset($_POST['insertMuebleBodega'])){
+        $nombre =$_POST['nombre'];
+		$ubicacion =$_POST['direccion'];
+
+        $tupla = "INSERT INTO `bodega` (`NoBodega`, `nombre`, `ubicacion`) VALUES (NULL, '$nombre', '$ubicacion')";
+
+        $insert = mysqli_query($enlace, $tupla);
+
+        if($insert){
+            $noBodega = mysqli_insert_id($enlace);
+            $modelo = $_POST['modelo'];
+            $categoria = $_POST['categoria'];
+            $tipo = $_POST['tipo'];
+            $costo = $_POST['costo'];
+            $descripcion = $_POST['descripcion'];
+            $cantidad = $_POST['cantidad'];
+            $fecha = date("Y-m-d H:i:s");
+
+            $tupla = "INSERT INTO `mueble` (`noMueble`, `modelo`, `categoria`, `tipo`, `costo`, `fecha`, `descripcion`, `cantidad`, `NoBodega`) VALUES (NULL, '$modelo', '$categoria', '$tipo', '$costo', '$fecha' , '$descripcion', '$cantidad', '$noBodega')";
+
+            $insert = mysqli_query($enlace, $tupla);
+
+            if($insert){
+                echo "<div class='alert alert-success' role='alert'>Bodega y mueble añadidos!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
+              else{
+                  echo "<div class='alert alert-danger' role='alert'>No se pudo insertar el mueble pero la bodega sí. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
+
+        }
+          else{
+              echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la bodega ni el mueble. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        }
+    }
+
     if(isset($_POST['insertMueble'])){
 		$modelo = $_POST['modelo'];
         $categoria = $_POST['categoria'];
@@ -301,9 +465,10 @@ include("../functions/functions.php");
         $costo = $_POST['costo'];
         $descripcion = $_POST['descripcion'];
         $cantidad = $_POST['cantidad'];
+        $noBodega = $_POST['noBodega'];
+        $fecha = date("Y-m-d H:i:s");
 
-
-        $tupla = "INSERT INTO `mueble` (`noMueble`, `modelo`, `categoria`, `tipo`, `costo`, `fecha`, `descripcion`, `cantidad`) VALUES (NULL, '$modelo', '$categoria', '$tipo', '$costo', NULL , '$descripcion', '$cantidad')";
+        $tupla = "INSERT INTO `mueble` (`noMueble`, `modelo`, `categoria`, `tipo`, `costo`, `fecha`, `descripcion`, `cantidad`, `NoBodega`) VALUES (NULL, '$modelo', '$categoria', '$tipo', '$costo', '$fecha' , '$descripcion', '$cantidad', '$noBodega')";
 
         $insert = mysqli_query($enlace, $tupla);
 

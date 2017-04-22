@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include("../functions/functions.php");
 
     if(!isset($_SESSION['usuario'])){
 
@@ -53,7 +54,8 @@
         <?php
 
             // Variables
-            
+            $clientes = getClientes();
+            $numero_clientes = count($clientes);
 
          ?>
         <div id="page-wrapper">
@@ -73,7 +75,7 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge"><?php echo $numero_clientes; ?></div>
                                     <div>Clientes</div>
                                 </div>
                             </div>
