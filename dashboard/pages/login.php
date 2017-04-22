@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 ?>
@@ -49,7 +49,7 @@ session_start();
                         <form role="form" method="post" action="login.php">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Usuario" name="usuario" type="email" autofocus>
+                                    <input class="form-control" placeholder="Usuario" name="usuario" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
@@ -86,35 +86,35 @@ session_start();
 </html>
 
 
-<?php 
+<?php
 
-include("../functions/functions.php"); 
-	
+include("../functions/functions.php");
+
 	if(isset($_POST['login'])){
-	
+
 		$usuario = mysqli_real_escape_string($enlace, $_POST['usuario']);
 		$pass = mysqli_real_escape_string($enlace, $_POST['password']);
-	
+
 	$sel_user = "select * from admin where usuario='$usuario' AND contrasena='$pass'";
-	
-	$run_user = mysqli_query($enlace, $sel_user); 
-	
-	 $check_user = mysqli_num_rows($run_user); 
-	
+
+	$run_user = mysqli_query($enlace, $sel_user);
+
+	 $check_user = mysqli_num_rows($run_user);
+
 	if($check_user==1){
-	
-	$_SESSION['usuario']=$usuario; 
-	
+
+	$_SESSION['usuario']=$usuario;
+
 	echo "<script>window.open('index.php?logged_in=You have successfully Logged in!','_self')</script>";
-	
+
 	}
 	else {
-	
+
 	echo "<script>alert('El usuario y la contraseña no son validos')</script>";
-	
+
 	}
-	
-	
+
+
 	}
-	
+
 ?>

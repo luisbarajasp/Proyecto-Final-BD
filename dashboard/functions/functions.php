@@ -1,26 +1,25 @@
-<?php 
+<?php
 //Conexion
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
-        if($enlace)
-            echo"Conexion exitosa!!"."<br>";
-        else  
+    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
+        if($enlace){
+        }else{
             die ("no hay conexion");
-
+        }
 //Gets
 function getMuebles(){
-	
-	global $enlace; 
-	
+
+	global $enlace;
+
 	$mueble = "select * from mueble ";
-	
+
 	$query = mysqli_query($enlace, $mueble);
-	
+
 	while ($tupla=mysqli_fetch_array($query)){
-	
-		$noMueble = $tupla['noMueble']; 
+
+		$noMueble = $tupla['noMueble'];
 		$modelo = $tupla['modelo'];
         $categoria = $tupla['categoria'];
         $tipo = $tupla['tipo'];
@@ -30,22 +29,22 @@ function getMuebles(){
         $cantidad = $tupla['cantidad'];
 
 	//echo "<li><a href='index.php?cat=$noMueble'>$modelo</a></li>";
-	
-	
+
+
 	}
 }
 
 function getCliente(){
-	
-	global $enlace; 
-	
+
+	global $enlace;
+
 	$cliente = "SELECT * FROM `cliente`";
-	
+
 	$query = mysqli_query($enlace, $cliente);
-	
+
 	while ($tupla=mysqli_fetch_array($query)){
-	
-		$noCliente = $tupla['noCliente']; 
+
+		$noCliente = $tupla['noCliente'];
 		$nombre = $tupla['nombre'];
         $email= $tupla['email'];
         $direccion = $tupla['direccion'];
@@ -54,77 +53,77 @@ function getCliente(){
 	/*
 	echo "
 				<div id='single_product'>
-				
+
 					<h3>$nombre</h3>
-					
+
 					<p><b> Nombre:  $email </b></p>
-				
+
 				</div>
-		
-		
+
+
 		";
 	*/
-	
+
 	}
 
 }
 
 function getBodega(){
-	
-	global $enlace; 
-	
+
+	global $enlace;
+
 	$bodega = "select * from bodega ";
-	
+
 	$query = mysqli_query($enlace, $bodega);
-	
+
 	while ($tupla=mysqli_fetch_array($query)){
-	
-		$noBodega = $tupla['NoBodega']; 
+
+		$noBodega = $tupla['NoBodega'];
         $nombre = $tupla['nombre'];
 		$ubicacion = $tupla['ubicacion'];
 
-	//echo	
+	//echo
 	}
 
 }
 
 function getMuebleBodega(){
-    	global $enlace; 
-	
+    	global $enlace;
+
 	$muebleBodega = "select * from mueble_bodega ";
-	
+
 	$query = mysqli_query($enlace, $muebleBodega);
-	
+
 	while ($tupla=mysqli_fetch_array($query)){
-	
-		$noBodega = $tupla['NoBodega']; 
+
+		$noBodega = $tupla['NoBodega'];
         $noCliente= $tupla['noCliente'];
 		$cantidad = $tupla['cantidadBodega'];
 
-	//echo	
+	//echo
 	}
-    
+
 }
 
 function getMuebleCliente(){
-    	global $enlace; 
-	
+    	global $enlace;
+
 	$muebleBodega = "select * from mueble_cliente ";
-	
+
 	$query = mysqli_query($enlace, $muebleBodega);
-	
+
 	while ($tupla=mysqli_fetch_array($query)){
-	
-		$noMueble = $tupla['NoMueble']; 
+
+		$noMueble = $tupla['NoMueble'];
         $noCliente= $tupla['noCliente'];
         $inicio = $tupla['inicio'];
         $fin = $tupla['fin'];
         $precio = $tupla['precio'];
 		$cantidad = $tupla['cantidadRentada'];
 
-	//echo	
+	//echo
 	}
-    
+
 }
 
 
