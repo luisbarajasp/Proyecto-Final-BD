@@ -127,20 +127,14 @@ include("../functions/functions.php");
                                                     <option value="">--</option>
                                                     <?php
 
-                                                        global $enlace;
+                                                        $muebles = getMuebles();
 
-                                                        $mueble = "select * from mueble";
-
-                                                        $query = mysqli_query($enlace, $mueble);
-
-                                                        while ($tupla=mysqli_fetch_array($query)){
-
-                                                            $noMueble = $tupla['noMueble'];
-                                                            $modelo = $tupla['modelo'];
-                                                            $categoria = $tupla['categoria'];
+                                                        foreach ($muebles as $mueble) {
+                                                            $noMueble = $mueble['noMueble'];
+                                                            $modelo = $mueble['modelo'];
+                                                            $categoria = $mueble['categoria'];
 
                                                             echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
-
                                                         }
 
                                                      ?>
@@ -187,20 +181,14 @@ include("../functions/functions.php");
                                                     <option value="">--</option>
                                                     <?php
 
-                                                        global $enlace;
+                                                        $clientes = getClientes();
 
-                                                        $cliente = "SELECT * FROM `cliente`";
-
-                                                        $query = mysqli_query($enlace, $cliente);
-
-                                                        while ($tupla=mysqli_fetch_array($query)){
-
-                                                            $noCliente = $tupla['noCliente'];
-                                                            $nombre = $tupla['nombre'];
-                                                            $email= $tupla['email'];
+                                                        foreach ($clientes as $cliente) {
+                                                            $noCliente = $cliente['noCliente'];
+                                                            $nombre = $cliente['nombre'];
+                                                            $email= $cliente['email'];
 
                                                             echo "<option value='$noCliente'>id: $noCliente / nombre: $nombre / email: $email</option>";
-
                                                         }
 
                                                      ?>
@@ -214,20 +202,14 @@ include("../functions/functions.php");
                                                     <option value="">--</option>
                                                     <?php
 
-                                                        global $enlace;
+                                                        $muebles = getMuebles();
 
-                                                        $mueble = "select * from mueble";
-
-                                                        $query = mysqli_query($enlace, $mueble);
-
-                                                        while ($tupla=mysqli_fetch_array($query)){
-
-                                                            $noMueble = $tupla['noMueble'];
-                                                            $modelo = $tupla['modelo'];
-                                                            $categoria = $tupla['categoria'];
+                                                        foreach ($muebles as $mueble) {
+                                                            $noMueble = $mueble['noMueble'];
+                                                            $modelo = $mueble['modelo'];
+                                                            $categoria = $mueble['categoria'];
 
                                                             echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
-
                                                         }
 
                                                      ?>

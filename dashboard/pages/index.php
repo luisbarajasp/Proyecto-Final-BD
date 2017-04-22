@@ -50,7 +50,12 @@
     <div id="wrapper">
 
         <?php include("dashboard_nav.php"); ?>
+        <?php
 
+            // Variables
+            
+
+         ?>
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
