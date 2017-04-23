@@ -202,7 +202,7 @@ include("../functions/functions.php");
                                          <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad" type="number" required>
+                                                <input class="form-control" name="cantidad" type="digits" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
