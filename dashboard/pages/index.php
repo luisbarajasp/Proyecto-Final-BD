@@ -66,9 +66,12 @@
             $bodegas = getBodegas();
             $numero_bodegas = count($bodegas);
 
-            $mueble_clientes = getMuebleClientes();
-            $numero_mueble_clientes = count($mueble_clientes);
+        	$string = "select count(mueble_cliente.noCliente) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
 
+        	$query = mysqli_query($enlace, $string);
+            $tupla = mysqli_fetch_array($query);
+
+            $numero_mueble_clientes = $tupla['numero'];
 
          ?>
         <div id="page-wrapper">
