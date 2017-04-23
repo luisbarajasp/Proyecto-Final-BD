@@ -54,6 +54,18 @@
                     <a href="rent.php"><i class="fa fa-bookmark fa-fw"></i> Nueva Renta</a>
                 </li>
                 <li>
+                    <a href="clientes.php"><i class="fa fa-users fa-fw"></i> Clientes</a>
+                </li>
+                <li>
+                    <a href="muebles.php"><i class="fa fa-bed fa-fw"></i> Muebles</a>
+                </li>
+                <li>
+                    <a href="bodegas.php"><i class="fa fa-building fa-fw"></i> Bodegas</a>
+                </li>
+                <li>
+                    <a href="rentas.php"><i class="fa fa-bookmark fa-fw"></i> Rentas</a>
+                </li>
+                <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
