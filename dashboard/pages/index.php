@@ -4,7 +4,7 @@
 
     if(!isset($_SESSION['usuario'])){
 
-        echo "<script>window.location.href='Bases de datos/Proyecto Final/404.html';</script>";
+        echo "<script>window.location.href='../../404.html';</script>";
     }
     else {
 ?>
