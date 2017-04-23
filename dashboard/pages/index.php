@@ -175,25 +175,6 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Rentas activas por mes
-                            <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                        Actions
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a href="#">Action</a>
-                                        </li>
-                                        <li><a href="#">Another action</a>
-                                        </li>
-                                        <li><a href="#">Something else here</a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -244,18 +225,11 @@
 
         $categorias = array();
 
-        $string = "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble group by mueble.categoria;";
+        $string = "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;";
 
     	$query = mysqli_query($enlace, $string);
 
     	while ($tupla=mysqli_fetch_array($query)){
-
-    		/*$noMueble = $tupla['NoMueble'];
-            $noCliente= $tupla['noCliente'];
-            $inicio = $tupla['inicio'];
-            $fin = $tupla['fin'];
-            $precio = $tupla['precio'];
-    		$cantidad = $tupla['cantidadRentada'];*/
 
             $categorias[] = $tupla;
 
@@ -264,64 +238,90 @@
         echo "<script>\n";
         echo "$(function() {\n";
         echo "\n";
-        echo "    Morris.Area({\n";
+        echo "    Morris.Line({\n";
         echo "        element: 'morris-area-chart',\n";
         echo "        data: [{\n";
-        echo "            period: '2010 Q1',\n";
+            $fecha = date("Y-m-d");
+
+            $months = 10;
+
+            $fechaMin = date('Y-m-01 00:00:00', strtotime('-' . $months . ' months', strtotime($fecha)));
+            $fechaMax = date('Y-m-t 23:59:59', strtotime('-' . $months . ' months', strtotime($fecha)));
+
+            while ($months >= 0) {
+
+                $array = array();
+
+                $string = "select count(mueble_cliente.noCliente) as numero, sum(mueble_cliente.cantidadRentada * mueble_cliente.precio) as ingreso from mueble_cliente where  mueble_cliente.inicio < '$fechaMax' AND ((mueble_cliente.fin > '$fechaMin' AND mueble_cliente.fin < '$fechaMax') OR mueble_cliente.fin IS NULL);";
+
+                $query = mysqli_query($enlace, $string);
+
+                $tupla = mysqli_fetch_array($query);
+
+                $ingreso = 0;
+
+                $numero = $tupla['numero'];
+                $ingreso += $tupla['ingreso'];
+                $fechastr = date('Y-m', strtotime($fechaMax));
+
+                echo "            period: '$fechastr',\n";
+                echo "            numero: $numero,\n";
+                echo "            ingreso: $ingreso\n";
+
+                if($months > 0){
+                    echo "}, {\n";
+                }
+
+                $months--;
+                $fechaMin = date('Y-m-01 00:00:00', strtotime('-' . $months . ' months', strtotime($fecha)));
+                $fechaMax = date('Y-m-t 23:59:59', strtotime('-' . $months . ' months', strtotime($fecha)));
+            }
+        /*echo "            period: '2010 Q1',\n";
         echo "            iphone: 2666,\n";
         echo "            ipad: null,\n";
-        echo "            itouch: 2647\n";
         echo "        }, {\n";
         echo "            period: '2010 Q2',\n";
         echo "            iphone: 2778,\n";
         echo "            ipad: 2294,\n";
-        echo "            itouch: 2441\n";
         echo "        }, {\n";
         echo "            period: '2010 Q3',\n";
         echo "            iphone: 4912,\n";
         echo "            ipad: 1969,\n";
-        echo "            itouch: 2501\n";
         echo "        }, {\n";
         echo "            period: '2010 Q4',\n";
         echo "            iphone: 3767,\n";
         echo "            ipad: 3597,\n";
-        echo "            itouch: 5689\n";
         echo "        }, {\n";
         echo "            period: '2011 Q1',\n";
         echo "            iphone: 6810,\n";
         echo "            ipad: 1914,\n";
-        echo "            itouch: 2293\n";
         echo "        }, {\n";
         echo "            period: '2011 Q2',\n";
         echo "            iphone: 5670,\n";
         echo "            ipad: 4293,\n";
-        echo "            itouch: 1881\n";
         echo "        }, {\n";
         echo "            period: '2011 Q3',\n";
         echo "            iphone: 4820,\n";
         echo "            ipad: 3795,\n";
-        echo "            itouch: 1588\n";
         echo "        }, {\n";
         echo "            period: '2011 Q4',\n";
         echo "            iphone: 15073,\n";
         echo "            ipad: 5967,\n";
-        echo "            itouch: 5175\n";
         echo "        }, {\n";
         echo "            period: '2012 Q1',\n";
         echo "            iphone: 10687,\n";
         echo "            ipad: 4460,\n";
-        echo "            itouch: 2028\n";
         echo "        }, {\n";
         echo "            period: '2012 Q2',\n";
         echo "            iphone: 8432,\n";
-        echo "            ipad: 5713,\n";
-        echo "            itouch: 1791\n";
+        echo "            ipad: 5713,\n";*/
         echo "        }],\n";
         echo "        xkey: 'period',\n";
-        echo "        ykeys: ['iphone', 'ipad', 'itouch'],\n";
-        echo "        labels: ['iPhone', 'iPad', 'iPod Touch'],\n";
+        echo "        ykeys: ['numero', 'ingreso'],\n";
+        echo "        labels: ['Número Rentas', 'Ingreso'],\n";
         echo "        pointSize: 2,\n";
         echo "        hideHover: 'auto',\n";
+        echo "        lineColors: ['#4DA74D', '#0B62A4'],\n";
         echo "        resize: true\n";
         echo "    });\n";
         echo "\n";
@@ -340,15 +340,6 @@
                     echo "}, {\n";
                 }
             }
-        /*echo "            label: \"Download Sales\",\n";
-        echo "            value: 12\n";
-        echo "        }, {\n";
-        echo "            label: \"In-Store Sales\",\n";
-        echo "            value: 30\n";
-        echo "        }, {\n";
-        echo "            label: \"Mail-Order Sales\",\n";
-        echo "            value: 20\n";*/
-
         echo "        }],\n";
         echo "        resize: true\n";
         echo "    });\n";
