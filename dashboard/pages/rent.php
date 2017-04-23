@@ -133,8 +133,13 @@ include("../functions/functions.php");
                                                             $noMueble = $mueble['noMueble'];
                                                             $modelo = $mueble['modelo'];
                                                             $categoria = $mueble['categoria'];
+                                                            $cantidad = $mueble['cantidad'];
 
-                                                            echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                            if((int)$cantidad > 0){
+                                                                echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                            }else{
+                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                            }
                                                         }
 
                                                      ?>
@@ -208,8 +213,13 @@ include("../functions/functions.php");
                                                             $noMueble = $mueble['noMueble'];
                                                             $modelo = $mueble['modelo'];
                                                             $categoria = $mueble['categoria'];
+                                                            $cantidad = $mueble['cantidad'];
 
-                                                            echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                            if((int)$cantidad > 0){
+                                                                echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                            }else{
+                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
+                                                            }
                                                         }
 
                                                      ?>
