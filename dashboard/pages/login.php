@@ -13,7 +13,7 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Magenta - Dashboard</title>
+    <title>Magenta - Login</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

@@ -54,24 +54,13 @@
         <?php
 
             // Variables
-            $clientes = getClientes();
-            $numero_clientes = count($clientes);
+            $numero_clientes = getNoClientes();
 
-            $muebles = getMuebles();
-            $mueblesSinRentar = 0;
-            foreach ($muebles as $mueble) {
-                $mueblesSinRentar += (int)$mueble['cantidad'];
-            }
+            $mueblesSinRentar = getNoMueblesDis();
 
-            $bodegas = getBodegas();
-            $numero_bodegas = count($bodegas);
+            $numero_bodegas = getNoBodegas();
 
-        	$string = "select count(mueble_cliente.noCliente) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
-
-        	$query = mysqli_query($enlace, $string);
-            $tupla = mysqli_fetch_array($query);
-
-            $numero_mueble_clientes = $tupla['numero'];
+            $numero_mueble_clientes = getNoRentas();
 
          ?>
         <div id="page-wrapper">
@@ -118,7 +107,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="muebles.php">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver todos</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -224,19 +213,7 @@
     <?php
 
         // Get the data for graphs
-        global $enlace;
-
-        $categorias = array();
-
-        $string = "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;";
-
-    	$query = mysqli_query($enlace, $string);
-
-    	while ($tupla=mysqli_fetch_array($query)){
-
-            $categorias[] = $tupla;
-
-        }
+        $categorias = getCantidadCategoria();
 
         echo "<script>\n";
         echo "$(function() {\n";

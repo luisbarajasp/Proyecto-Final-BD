@@ -136,5 +136,54 @@ function getMuebleClientes(){
     return $array;
 }
 
+function getNoClientes(){
+     global $enlace;
+     $query = mysqli_query($enlace, "SELECT * FROM cliente");
+     $num_rows = mysqli_num_rows($query);
+     return $num_rows;
+ }
+
+ function getNoMueblesDis(){
+    global $enlace;
+    $query = mysqli_query($enlace, "SELECT sum(cantidad) as disponibles FROM mueble");
+     while ($tupla=mysqli_fetch_array($query)){
+         $disponibles = $tupla['disponibles'];
+     }
+     return $disponibles;
+ }
+
+ function getNoBodegas(){
+      global $enlace;
+      $query = mysqli_query($enlace, "SELECT * FROM bodega");
+      $num_rows = mysqli_num_rows($query);
+      return $num_rows;
+  }
+
+  function getNoRentas(){
+       global $enlace;
+       $string = "select count(mueble_cliente.noCliente) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
+
+       $query = mysqli_query($enlace, $string);
+       $tupla = mysqli_fetch_array($query);
+
+       return $tupla['numero'];
+   }
+
+   function getCantidadCategoria(){
+       global $enlace;
+       $categorias = array();
+
+       $string = "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;";
+
+       $query = mysqli_query($enlace, $string);
+
+       while ($tupla=mysqli_fetch_array($query)){
+
+           $categorias[] = $tupla;
+
+       }
+
+       return $categorias;
+   }
 
 ?>

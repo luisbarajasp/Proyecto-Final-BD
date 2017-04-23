@@ -1,12 +1,8 @@
-
 <?php
 session_start();
 include("../functions/functions.php");
-
     if(!isset($_SESSION['usuario'])){
-
         echo "<script>window.location.href='../../404.html';</script>";
-
     }
     else {
 ?>
@@ -53,76 +49,55 @@ include("../functions/functions.php");
 
         <?php include("dashboard_nav.php"); ?>
         <?php
-            $muebles = getMuebles();
+            $NoBodega = $_GET['id'];
+            $query = "SELECT * FROM bodega where NoBodega = $NoBodega";
+            $bodega = mysqli_fetch_array(mysqli_query($enlace, $query));
+            if($_POST){
+                $nombre = $_POST['nombre'];
+                $ubicacion = $_POST['ubicacion'];
+            }else{
+                $nombre = $bodega['nombre'];
+                $ubicacion = $bodega['ubicacion'];
+            }
         ?>
         <div id="page-wrapper" class="add">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Muebles</h1>
+                    <h1 class="page-header">Editar Bodega</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                      <tr>
-                          <th>No. Mueble</th>
-                          <th>Modelo</th>
-                          <th>Categoria</th>
-                          <th>Tipo</th>
-                          <th>Costo</th>
-                          <th>Fecha Creado</th>
-                          <th>Desripción</th>
-                          <th>Cantidad</th>
-                          <th>Bodega</th>
-                          <th>Acciones</th>
-                      </tr>
-                          <?php
-
-                            foreach ($muebles as $mueble) {
-                                $noMueble = $mueble['noMueble'];
-                        		$modelo = $mueble['modelo'];
-                                $categoria = $mueble['categoria'];
-                                $tipo = $mueble['tipo'];
-                                $costo = $mueble['costo'];
-                                $fecha = $mueble['fecha'];
-                                $descripcion = $mueble['descripcion'];
-                                $cantidad = $mueble['cantidad'];
-                                $noBodega = $mueble['NoBodega'];
-
-                                if(is_null($noBodega)){
-                                    $bodega_name = "No tiene bodega asignada";
-                                }else{
-                                    $query = "SELECT * FROM bodega where NoBodega = $noBodega";
-
-                                    $bodega = mysqli_fetch_array(mysqli_query($enlace, $query));
-
-                                    $bodega_name = $bodega['nombre'];
-                                }
-
-
-                                if((int)$cantidad < 1){
-                                    echo "<tr class='danger'>";
-                                }elseif ((int)$cantidad < 4) {
-                                    echo "<tr class='warning'>";
-                                }else{
-                                    echo "<tr>";
-                                }
-                                echo "<td>$noMueble</td>";
-                                echo "<td>$modelo</td>";
-                                echo "<td>$categoria</td>";
-                                echo "<td>$tipo</td>";
-                                echo "<td>$costo</td>";
-                                echo "<td>" . date("d/m/Y",strtotime($fecha)) . "</td>";
-                                echo "<td>$descripcion</td>";
-                                echo "<td>$cantidad</td>";
-                                echo "<td>$bodega_name</td>";
-                                echo "<td><a class='btn btn-default' href='edit_mueble.php?id=$noMueble'>Editar</a><a class='btn btn-danger' href='delete_mueble.php?id=$noMueble' onclick=\"return confirm('¿Estás seguro? ¡También se eliminarán las rentas en las que está!')\">Eliminar</a></td>";
-                                echo "</tr>";
-                            }
-
-                           ?>
-                    </table>
+            <div class="row forms">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <form role="form" method = "post">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Nombre</label>
+                                                <input class="form-control" name="nombre" required value="<?php echo $nombre; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Dirección</label>
+                                                <input class="form-control" name="ubicacion" required value="<?php echo $ubicacion; ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12">
+                                            <button type="submit" name ="insertBodega" class="btn btn-default">Actualizar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -172,5 +147,21 @@ include("../functions/functions.php");
 </body>
 
 </html>
+
+<?php
+     if(isset($_POST['insertBodega'])){
+        $nombre =$_POST['nombre'];
+		$ubicacion =$_POST['ubicacion'];
+        $tupla = "UPDATE `bodega` SET `nombre`='$nombre', `ubicacion`='$ubicacion' where NoBodega = $NoBodega";
+        $update = mysqli_query($enlace, $tupla);
+        if($update){
+            echo "<div class='alert alert-success' role='alert'>Bodega Actualizada!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        }
+        else{
+            $error = mysqli_error($enlace);
+            echo "<div class='alert alert-danger' role='alert'>No se pudo actualizar la bodega. Intenta de nuevo. $error<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        }
+    }
+?>
 
 <?php } ?>
