@@ -278,4 +278,38 @@ function getNoClientes(){
        return $array;
    }
 
+function getNoRenta(){
+     global $enlace;
+     $array = array();
+    $query = mysqli_query($enlace, "SELECT noRenta FROM mueble_cliente where fin like '0000-00-00%'");
+     while ($tupla=mysqli_fetch_array($query)){
+         $array[] = $tupla;
+     }
+     return $array;
+}
+
+function getDatosPago($noRenta){
+     global $enlace;
+     $array = array();
+    $query = mysqli_query($enlace, "SELECT 
+        nombre, fecha, cantidad FROM
+        cliente
+        NATURAL JOIN
+        mueble_cliente
+        NATURAL JOIN
+        pago
+        WHERE noRenta = $noRenta");
+     $tupla=mysqli_fetch_array($query);
+    return $tupla;
+}
+    
+function getPagos($fecha, $noRenta){
+    global $enlace;
+    $query = mysqli_query($enlace, "SELECT noRenta FROM pago WHERE fecha LIKE '$fecha%' AND noRenta = $noRenta");
+    $num_rows = mysqli_num_rows($query);
+    if($num_rows == 0)
+     return false;
+    else return true;
+}
+
 ?>

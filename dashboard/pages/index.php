@@ -197,6 +197,38 @@
                         <div class="panel-heading">
                             <i class="fa fa-money fa-fw"></i> Pagos de las rentas este mes
                         </div>
+                         
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                      <tr>
+                          <th>Cliente</th>
+                          <th>Dia de Pago</th>
+                          <th>Cantidad</th>
+                          <th>Pago</th>
+                      </tr>
+                        <?php
+           $mes = date("Y-m");
+            $rentas = getNoRenta();
+            foreach ($rentas as $renta) {
+            if (getPagos($mes, $renta['noRenta'])){
+                $info = getDatosPago($renta['noRenta']);
+                                $nombre = $info['nombre'];
+                                $fecha= $info['fecha'];
+                                $cantidad = $info['cantidad'];
+                                echo "<tr>";
+                                echo "<td>$nombre</td>";
+                                echo "<td>$fecha</td>";
+                                echo "<td>$cantidad</td>";
+                                echo "<td><a class='btn btn-danger' href='delete_client.php?id=1' onclick=\"return confirm('¿Estás seguro? ¡También se eliminarán las rentas en las que está!')\">Eliminar</a></td>";
+                                echo "</tr>";
+                
+            }
+            }
+          
+        ?>
+                       </table>
+                </div>
+            </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 
@@ -205,7 +237,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+       
         <!-- /#page-wrapper -->
 
     </div>
