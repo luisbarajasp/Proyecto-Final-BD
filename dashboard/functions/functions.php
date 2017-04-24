@@ -217,7 +217,7 @@ function getNoClientes(){
 
   function getNoRentas(){
        global $enlace;
-       $string = "select count(mueble_cliente.noCliente) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
+       $string = "select count(mueble_cliente.noRenta) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
 
        $query = mysqli_query($enlace, $string);
        $tupla = mysqli_fetch_array($query);
