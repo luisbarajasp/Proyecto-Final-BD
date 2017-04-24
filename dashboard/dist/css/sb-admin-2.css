@@ -492,3 +492,16 @@ table.dataTable thead .sorting:after {
         margin-top: 20px;
     }
 }
+
+@media (min-width: 1200px){
+    #page-wrapper.search .panel-body{
+        max-height: 440px;
+        overflow: scroll;
+    }
+}
+
+#page-wrapper.search .is-empty h1{
+    font-size: 28px;
+    text-align: center;
+    color: #d0d0d0;
+}
