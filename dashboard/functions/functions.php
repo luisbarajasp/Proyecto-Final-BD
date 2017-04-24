@@ -281,8 +281,9 @@ function getNoClientes(){
 function getNoRenta(){
      global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT noRenta FROM mueble_cliente where fin like '0000-00-00%'");
+    $query = mysqli_query($enlace, "SELECT noRenta FROM mueble_cliente where fin is NULL");
      while ($tupla=mysqli_fetch_array($query)){
+         if(checkArray($array, $tupla))
          $array[] = $tupla;
      }
      return $array;
@@ -292,13 +293,11 @@ function getDatosPago($noRenta){
      global $enlace;
      $array = array();
     $query = mysqli_query($enlace, "SELECT 
-        nombre, fecha, cantidad FROM
+        nombre, dia, sum(precio) as cantidad FROM
         cliente
         NATURAL JOIN
         mueble_cliente
-        NATURAL JOIN
-        pago
-        WHERE noRenta = $noRenta");
+        WHERE noRenta =  $noRenta");
      $tupla=mysqli_fetch_array($query);
     return $tupla;
 }
@@ -312,4 +311,12 @@ function getPagos($fecha, $noRenta){
     else return true;
 }
 
+function checkArray($array, $element){
+     foreach ($array as $a){
+            if ($a == $element){
+                return false;
+            }
+        }
+    return true;
+}
 ?>

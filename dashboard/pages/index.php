@@ -210,14 +210,14 @@
            $mes = date("Y-m");
             $rentas = getNoRenta();
             foreach ($rentas as $renta) {
-            if (getPagos($mes, $renta['noRenta'])){
+            if (!getPagos($mes, $renta['noRenta'])){
                 $info = getDatosPago($renta['noRenta']);
                                 $nombre = $info['nombre'];
-                                $fecha= $info['fecha'];
+                                $dia= $info['dia'];
                                 $cantidad = $info['cantidad'];
                                 echo "<tr>";
                                 echo "<td>$nombre</td>";
-                                echo "<td>$fecha</td>";
+                                echo "<td>$dia</td>";
                                 echo "<td>$cantidad</td>";
                                 echo "<td><a class='btn btn-danger' href='delete_client.php?id=1' onclick=\"return confirm('¿Estás seguro? ¡También se eliminarán las rentas en las que está!')\">Eliminar</a></td>";
                                 echo "</tr>";

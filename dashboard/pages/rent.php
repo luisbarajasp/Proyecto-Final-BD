@@ -114,6 +114,12 @@ include("../functions/functions.php");
                                                 <input class="form-control" name="RFC" type="text" required>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Dia de Pago</label>
+                                                <input class="form-control" name="dia" type="digits" required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                     <div class="col-lg-12">
@@ -241,6 +247,14 @@ include("../functions/functions.php");
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                    <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Dia de Pago</label>
+                                                <input class="form-control" name="dia" type="digits" required>
+                                            </div>
+                                        </div>
+                                        </div>
 
                                     <div class="col-xs-12">
                                         <div class="col-xs-12">
@@ -318,18 +332,21 @@ include("../functions/functions.php");
         $tupla = "INSERT INTO `cliente` (`noCliente`, `nombre`, `email`, `direccion`, `telefono`, `RFC`) VALUES (NULL, '$nombre', '$email', '$direccion', '$telefono', '$RFC')";
 
         $insert = mysqli_query($enlace, $tupla);
+        
 
         if($insert){
             $noCliente = mysqli_insert_id($enlace);
             $noMueble = $_POST['noMueble'];
             $precio = $_POST['precio'];
             $created_at = date("Y-m-d H:i:s");
+            $dia = $_POST['dia'];
 
             // Validate that there are enough
             $cantidad = $_POST['cantidad'];
             $query = "SELECT * FROM mueble where noMueble = $noMueble";
 
             $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
+            
 
             $left = (int)$mueble['cantidad'] - (int)$cantidad;
 
@@ -340,6 +357,8 @@ include("../functions/functions.php");
 
                 $query = "update mueble SET cantidad=$left where noMueble=$noMueble;";
                 $update = mysqli_query($enlace, $query);
+                
+                //$insert = mysqli_query($enlace, "INSERT INTO `pago` (`idPago`, `noMueble`, `inicio`, `fin`, `precio) ;
 
                 if($insert && $update){
                     echo "<div class='alert alert-success' role='alert'>Renta y cliente añadidos!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
