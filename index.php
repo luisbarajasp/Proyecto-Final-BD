@@ -58,6 +58,15 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contacto</a>
                     </li>
+                    <?php
+                        session_start();
+
+                        if(isset($_SESSION['usuario'])){
+
+                            echo "<li><a href=\"dashboard\" class='btn btn-primary'>Dashboard</a></li>";
+
+                        }
+                    ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
