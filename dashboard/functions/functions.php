@@ -45,7 +45,7 @@ function getBodegas(){
     return $array;
 }
 
-function getMuebleClientes($cliente){
+function getMuebleClientes($cliente = ''){
     global $enlace;
     $array = array();
 	$query = mysqli_query($enlace, "select * from mueble_cliente WHERE noCliente = $cliente ");
@@ -115,7 +115,7 @@ function getNoClientes(){
 
   function getNoRentas(){
        global $enlace;
-       $query = mysqli_query($enlace, "select count(mueble_cliente.noRenta) as numero from mueble_cliente where mueble_cliente.fin IS NULL;");
+       $query = mysqli_query($enlace, "select count(renta.noRenta) as numero from renta where renta.fin IS NULL;");
        $tupla = mysqli_fetch_array($query);
 
        return $tupla['numero'];
@@ -124,7 +124,7 @@ function getNoClientes(){
    function getCantidadCategoria(){
        global $enlace;
        $categorias = array();
-       $query = mysqli_query($enlace, "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;");
+       $query = mysqli_query($enlace, "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from renta natural join mueble_cliente natural join mueble WHERE renta.fin IS NULL group by mueble.categoria;");
 
        while ($tupla=mysqli_fetch_array($query)){
 
@@ -138,7 +138,7 @@ function getNoClientes(){
    function getRentasClientesPorMuebles($search = ''){
        global $enlace;
        $array = array();
-       $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (cliente.nombre LIKE '%$search%' OR cliente.email LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;");
+       $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from renta natural join mueble_cliente natural join cliente natural join mueble where (cliente.nombre LIKE '%$search%' OR cliente.email LIKE '%$search%') AND renta.fin IS NULL group by mueble.noMueble;");
 
    	while ($tupla=mysqli_fetch_array($query)){
            $array[] = $tupla;

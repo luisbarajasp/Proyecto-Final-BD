@@ -114,12 +114,7 @@ include("../functions/functions.php");
                                                 <input class="form-control" name="RFC" type="text" required>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Dia de Pago</label>
-                                                <input class="form-control" name="dia" type="digits" required>
-                                            </div>
-                                        </div>
+
                                     </div>
                                     <hr>
                                     <div class="col-lg-12">
@@ -128,8 +123,17 @@ include("../functions/functions.php");
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
+                                                <label>Dia de Pago</label>
+                                                <input class="form-control" name="dia" type="text" placeholder="YYYY/MM/DD" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr style="border-color: #d0d0d0; width: 100%;">
+                                    <div class="col-lg-12">
+                                        <div class="col-lg-6">
+                                            <div class="form-group" id="mueble-select">
                                                 <label>Mueble</label>
-                                                <select class="form-control" name="noMueble" required>
+                                                <select class="form-control" name="noMueble[]" required>
                                                     <option value="">--</option>
                                                     <?php
 
@@ -144,7 +148,7 @@ include("../functions/functions.php");
                                                             if((int)$cantidad > 0){
                                                                 echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
                                                             }else{
-                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
                                                             }
                                                         }
 
@@ -155,7 +159,7 @@ include("../functions/functions.php");
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad" type="digits" required>
+                                                <input class="form-control" name="cantidad[]" type="digits" required>
                                             </div>
                                         </div>
                                     </div>
@@ -163,13 +167,18 @@ include("../functions/functions.php");
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Precio</label>
-                                                <input class="form-control" name="precio" type="number" required>
+                                                <input class="form-control" name="precio[]" type="number" required>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="add-rent"></div>
+                                    <div class="col-xs-12" style="margin: 10px 0;">
+                                        <div class="col-xs-12">
+                                            <a id="another-mueble" class="btn btn-primary">Añadir otro mueble</a>
+                                        </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div class="col-lg-12">
+                                        <div class="col-xs-12">
                                             <button type="submit" name ="insertRentClient" class="btn btn-default">Guardar</button>
                                         </div>
                                     </div>
@@ -206,14 +215,19 @@ include("../functions/functions.php");
                                                 </select>
                                             </div>
                                         </div>
-
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Dia de Pago</label>
+                                                <input class="form-control" name="dia" type="text" placeholder="YYYY/MM/DD" required>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr style="border-color: #d0d0d0; width: 100%;">
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group" id="mueble-select">
                                                 <label>Mueble</label>
-                                                <select class="form-control" name="noMueble" required>
+                                                <select class="form-control" name="noMueble[]" required>
                                                     <option value="">--</option>
                                                     <?php
 
@@ -239,7 +253,7 @@ include("../functions/functions.php");
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad" type="digits" required>
+                                                <input class="form-control" name="cantidad[]" type="digits" required>
                                             </div>
                                         </div>
                                     </div>
@@ -247,7 +261,7 @@ include("../functions/functions.php");
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Precio</label>
-                                                <input class="form-control" name="precio" type="number" required>
+                                                <input class="form-control" name="precio[]" type="number" required>
                                             </div>
                                         </div>
                                     </div>
@@ -317,7 +331,7 @@ include("../functions/functions.php");
             });
             $('#existent #another-mueble').on('click',function(e){
                 e.preventDefault();
-                var muebleSelect = $('#mueble-select').html();
+                var muebleSelect = $('#existent #mueble-select').html();
                 $('#existent .add-rent')
                     .append
                     ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
@@ -328,7 +342,7 @@ include("../functions/functions.php");
                             "<div class=\"col-lg-6\">" +
                                 "<div class=\"form-group\">" +
                                     "<label>Cantidad</label>" +
-                                    "<input class=\"form-control\" name=\"cantidad\" type=\"digits\" required>" +
+                                    "<input class=\"form-control\" name=\"cantidad[]\" type=\"digits\" required>" +
                                 "</div>" +
                             "</div>" +
                         "</div>" +
@@ -336,7 +350,33 @@ include("../functions/functions.php");
                             "<div class=\"col-lg-6\">" +
                                 "<div class=\"form-group\">" +
                                     "<label>Precio</label>" +
-                                    "<input class=\"form-control\" name=\"precio\" type=\"number\" required>" +
+                                    "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>");
+            });
+            $('#new #another-mueble').on('click',function(e){
+                e.preventDefault();
+                var muebleSelect = $('#new #mueble-select').html();
+                $('#new .add-rent')
+                    .append
+                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
+                        "<div class=\"col-lg-12\">" +
+                            "<div class=\"col-lg-6\">" +
+                                    muebleSelect +
+                            "</div>" +
+                            "<div class=\"col-lg-6\">" +
+                                "<div class=\"form-group\">" +
+                                    "<label>Cantidad</label>" +
+                                    "<input class=\"form-control\" name=\"cantidad[]\" type=\"digits\" required>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"col-lg-12\">" +
+                            "<div class=\"col-lg-6\">" +
+                                "<div class=\"form-group\">" +
+                                    "<label>Precio</label>" +
+                                    "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
                                 "</div>" +
                             "</div>" +
                         "</div>");
@@ -363,45 +403,90 @@ include("../functions/functions.php");
 
         if($insert){
             $noCliente = mysqli_insert_id($enlace);
-            $noMueble = $_POST['noMueble'];
-            $precio = $_POST['precio'];
-            $created_at = date("Y-m-d H:i:s");
-            $dia = $_POST['dia'];
+            $inicio = date("Y-m-d H:i:s");
+            $dia = date("Y-m-d 00:00:00", strtotime($_POST['dia']));
 
-            // Validate that there are enough
-            $cantidad = $_POST['cantidad'];
-            $query = "SELECT * FROM mueble where noMueble = $noMueble";
+            $suficientes = true;
+            $noMuebleNoSuf = 0;
 
-            $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
+            $left = array();
 
+            // Validate there are enough
+            foreach ($_POST['noMueble'] as $key => $value) {
+                $noMueble = $_POST['noMueble'][$key];
+                $cantidad = $_POST['cantidad'][$key];
+                $query = "SELECT * FROM mueble where noMueble = $noMueble";
 
-            $left = (int)$mueble['cantidad'] - (int)$cantidad;
+                $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
 
-            //There are enough
-            if($left >= 0){
-                $tupla = "INSERT INTO `mueble_cliente` (`noCliente`, `noMueble`, `inicio`, `fin`, `precio`, `cantidadRentada`) VALUES ('$noCliente', '$noMueble', '$created_at', NULL, '$precio', '$cantidad')";
-                $insert = mysqli_query($enlace, $tupla);
-
-                $query = "update mueble SET cantidad=$left where noMueble=$noMueble;";
-                $update = mysqli_query($enlace, $query);
-
-                //$insert = mysqli_query($enlace, "INSERT INTO `pago` (`idPago`, `noMueble`, `inicio`, `fin`, `precio) ;
-
-                if($insert && $update){
-                    echo "<div class='alert alert-success' role='alert'>Renta y cliente añadidos!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                if((int)$mueble['cantidad'] < (int)$cantidad){
+                    $suficientes = false;
+                    $noMuebleNoSuf = $noMueble;
+                    break;
                 }else{
-                    if($insert){
-                        $query = "delete from mueble_cliente where noMueble=$noMueble AND noCliente=$noCliente;";
-                        $delete = mysqli_query($enlace, $query);
-                    }elseif ($update) {
-                        $cantidad = $mueble['cantidad'];
-                        $query = "update mueble SET cantidad=$cantidad where noMueble=$noMueble;";
-                        $update = mysqli_query($enlace, $query);
-                    }
-                    echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta pero el cliente sí. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    $left[$key] = (int)$mueble['cantidad'] - (int)$cantidad;
                 }
+            }
+
+            if($suficientes){
+
+                $query = "INSERT INTO `renta` (`noRenta`, `inicio`, `fin`, `dia`, `total`, `noCliente`) VALUES (NULL, '$inicio', NULL, '$dia', NULL, '$noCliente')";
+                $insert = mysqli_query($enlace, $query);
+
+                $noRenta = mysqli_insert_id($enlace);
+
+                if ($insert){
+                    $error = false;
+                    $total = 0;
+                    /* Muebles */
+                    foreach ($_POST['noMueble'] as $key => $value) {
+                        $noMueble = $_POST['noMueble'][$key];
+                        $precio = $_POST['precio'][$key];
+                        $cantidad = $_POST['cantidad'][$key];
+
+                        $remaining = $left[$key];
+
+                        $total += (int)$precio * (int)$cantidad;
+
+                        $tupla = "INSERT INTO `mueble_cliente` (`noRenta`, `noMueble`, `precio`, `cantidadRentada`) VALUES ('$noRenta', '$noMueble', '$precio', '$cantidad')";
+                        $insert = mysqli_query($enlace, $tupla);
+
+                        $query = "update mueble SET cantidad=$remaining where noMueble=$noMueble;";
+                        $update = mysqli_query($enlace, $query);
+
+                        if(!$insert || !$update){
+                            if($insert){
+                                $query = "delete from renta where noRenta=$noRenta;";
+                                $delete = mysqli_query($enlace, $query);
+                            }elseif ($update) {
+                                foreach ($_POST['noMueble'] as $key => $value) {
+                                    $noMueble = $_POST['noMueble'][$key];
+                                    $cantidad = $_POST['cantidad'][$key];
+                                    $query = "update mueble SET cantidad=$cantidad where noMueble=$noMueble;";
+                                    $update = mysqli_query($enlace, $query);
+                                }
+
+                            }
+
+                            echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                            $error = true;
+                            break;
+                        }
+                    }
+
+                    if(!$error){
+                        $query = "update renta SET total=$total where noRenta=$noRenta;";
+                        $update = mysqli_query($enlace, $query);
+
+                        echo "<div class='alert alert-success' role='alert'>Renta añadida<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    }
+
+                }else{
+                    echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                }
+
             }else{
-                echo "<div class='alert alert-danger' role='alert'>Error: no hay suficientes muebles disponibles<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                echo "<div class='alert alert-danger' role='alert'>Error: no hay suficientes muebles disponibles del mueble: $noMuebleNoSuf<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             }
 
         }
@@ -412,44 +497,91 @@ include("../functions/functions.php");
 
     if(isset($_POST['insertRent'])){
         $noCliente = $_POST['noCliente'];
-        $noMueble = $_POST['noMueble'];
-        $precio = $_POST['precio'];
-        $created_at = date("Y-m-d H:i:s");
+        $inicio = date("Y-m-d H:i:s");
+        $dia = date("Y-m-d 00:00:00", strtotime($_POST['dia']));
 
-        // Validate that there are enough
-        $cantidad = $_POST['cantidad'];
-        $query = "SELECT * FROM mueble where noMueble = $noMueble";
+        $suficientes = true;
+        $noMuebleNoSuf = 0;
 
-        $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
+        $left = array();
 
-        $left = (int)$mueble['cantidad'] - (int)$cantidad;
+        // Validate there are enough
+        foreach ($_POST['noMueble'] as $key => $value) {
+            $noMueble = $_POST['noMueble'][$key];
+            $cantidad = $_POST['cantidad'][$key];
+            $query = "SELECT * FROM mueble where noMueble = $noMueble";
 
-        //There are enough
-        if($left >= 0){
-            $tupla = "INSERT INTO `mueble_cliente` (`noCliente`, `noMueble`, `inicio`, `fin`, `precio`, `cantidadRentada`) VALUES ('$noCliente', '$noMueble', '$created_at', NULL, '$precio', '$cantidad')";
-            $insert = mysqli_query($enlace, $tupla);
+            $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
 
-            $query = "update mueble SET cantidad=$left where noMueble=$noMueble;";
-            $update = mysqli_query($enlace, $query);
-
-            if($insert && $update){
-                echo "<div class='alert alert-success' role='alert'>Renta añadida!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            if((int)$mueble['cantidad'] < (int)$cantidad){
+                $suficientes = false;
+                $noMuebleNoSuf = $noMueble;
+                break;
             }else{
-                if($insert){
-                    $query = "delete from mueble_cliente where noMueble=$noMueble AND noCliente=$noCliente;";
-                    $delete = mysqli_query($enlace, $query);
-                }elseif ($update) {
-                    $cantidad = $mueble['cantidad'];
-                    $query = "update mueble SET cantidad=$cantidad where noMueble=$noMueble;";
-                    $update = mysqli_query($enlace, $query);
-                }
-
-                echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                $left[$key] = (int)$mueble['cantidad'] - (int)$cantidad;
             }
-        }else{
-            echo "<div class='alert alert-danger' role='alert'>Error: no hay suficientes muebles disponibles<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         }
 
+        if($suficientes){
+
+            $query = "INSERT INTO `renta` (`noRenta`, `inicio`, `fin`, `dia`, `total`, `noCliente`) VALUES (NULL, '$inicio', NULL, '$dia', NULL, '$noCliente')";
+            $insert = mysqli_query($enlace, $query);
+
+            $noRenta = mysqli_insert_id($enlace);
+
+            if ($insert){
+                $error = false;
+                $total = 0;
+                /* Muebles */
+                foreach ($_POST['noMueble'] as $key => $value) {
+                    $noMueble = $_POST['noMueble'][$key];
+                    $precio = $_POST['precio'][$key];
+                    $cantidad = $_POST['cantidad'][$key];
+
+                    $remaining = $left[$key];
+
+                    $total += (int)$precio;
+
+                    $tupla = "INSERT INTO `mueble_cliente` (`noRenta`, `noMueble`, `precio`, `cantidadRentada`) VALUES ('$noRenta', '$noMueble', '$precio', '$cantidad')";
+                    $insert = mysqli_query($enlace, $tupla);
+
+                    $query = "update mueble SET cantidad=$remaining where noMueble=$noMueble;";
+                    $update = mysqli_query($enlace, $query);
+
+                    if(!$insert || !$update){
+                        if($insert){
+                            $query = "delete from renta where noRenta=$noRenta;";
+                            $delete = mysqli_query($enlace, $query);
+                        }elseif ($update) {
+                            foreach ($_POST['noMueble'] as $key => $value) {
+                                $noMueble = $_POST['noMueble'][$key];
+                                $cantidad = $_POST['cantidad'][$key];
+                                $query = "update mueble SET cantidad=$cantidad where noMueble=$noMueble;";
+                                $update = mysqli_query($enlace, $query);
+                            }
+
+                        }
+
+                        echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                        $error = true;
+                        break;
+                    }
+                }
+
+                if(!$error){
+                    $query = "update renta SET total=$total where noRenta=$noRenta;";
+                    $update = mysqli_query($enlace, $query);
+
+                    echo "<div class='alert alert-success' role='alert'>Renta añadida<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                }
+
+            }else{
+                echo "<div class='alert alert-danger' role='alert'>No se pudo insertar la renta. Intenta de nuevo.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+            }
+
+        }else{
+            echo "<div class='alert alert-danger' role='alert'>Error: no hay suficientes muebles disponibles del mueble: $noMuebleNoSuf<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        }
 
     }
 
