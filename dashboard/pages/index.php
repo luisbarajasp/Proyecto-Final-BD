@@ -292,7 +292,7 @@
 
                 $array = array();
 
-                $string = "select count(mueble_cliente.noRenta) as numero, sum(mueble_cliente.cantidadRentada * mueble_cliente.precio) as ingreso from mueble_cliente where  mueble_cliente.inicio < '$fechaMax' AND ((mueble_cliente.fin > '$fechaMin' AND mueble_cliente.fin < '$fechaMax') OR mueble_cliente.fin IS NULL);";
+                $string = "select count(renta.noRenta) as numero, sum(renta.total) as ingreso from renta where renta.inicio < '$fechaMax' AND ((renta.fin > '$fechaMin' AND renta.fin < '$fechaMax') OR renta.fin IS NULL);";
 
                 $query = mysqli_query($enlace, $string);
 
