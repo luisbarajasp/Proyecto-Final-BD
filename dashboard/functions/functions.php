@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
+    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
         if($enlace){
         }else{
             die ("no hay conexion");
@@ -38,7 +38,7 @@ function getBodegas(){
 	global $enlace;
     $array = array();
 	$query = mysqli_query($enlace, "select * from bodega ");
-    
+
 	while ($tupla=mysqli_fetch_array($query)){
         $array[] = $tupla;
     }
@@ -170,7 +170,7 @@ function getNoRenta(){
 function getDatosPago($noRenta){
      global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT 
+    $query = mysqli_query($enlace, "SELECT
         nombre, dia, sum(precio) as cantidad FROM
         cliente
         NATURAL JOIN
@@ -179,7 +179,7 @@ function getDatosPago($noRenta){
      $tupla=mysqli_fetch_array($query);
     return $tupla;
 }
-    
+
 function getPagos($fecha, $noRenta){
     global $enlace;
     $query = mysqli_query($enlace, "SELECT noRenta FROM pago WHERE fecha LIKE '$fecha%' AND noRenta = $noRenta");
@@ -201,14 +201,14 @@ function getRentas(){
 function getDatosRentas(){
     global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT 
+    $query = mysqli_query($enlace, "SELECT
         noRenta, nombre, modelo, inicio, precio FROM
         cliente
         NATURAL JOIN
         mueble_cliente
         NATURAL JOIN
         mueble
-        WHERE fin is NULL");   
+        WHERE fin is NULL");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }
@@ -217,7 +217,7 @@ function getDatosRentas(){
 
 function getTotalRenta($noRenta){
       global $enlace;
-    $query = mysqli_query($enlace, "SELECT sum(precio) as total FROM mueble_cliente WHERE noRenta = $noRenta");   
+    $query = mysqli_query($enlace, "SELECT sum(precio) as total FROM mueble_cliente WHERE noRenta = $noRenta");
     $tupla=mysqli_fetch_array($query);
     return $tupla['total'];
 }
@@ -231,7 +231,7 @@ function getTotalRenta($noRenta){
   table = document.getElementById("myTable");
   switching = true;
   //Set the sorting direction to ascending:
-  dir = "asc"; 
+  dir = "asc";
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
@@ -269,7 +269,7 @@ function getTotalRenta($noRenta){
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
       //Each time a switch is done, increase this count by 1:
-      switchcount ++; 
+      switchcount ++;
     } else {
       /*If no switching has been done AND the direction is "asc",
       set the direction to "desc" and run the while loop again.*/

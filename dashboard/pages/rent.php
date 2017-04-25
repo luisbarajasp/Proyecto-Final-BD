@@ -183,7 +183,7 @@ include("../functions/functions.php");
                     <div class="panel panel-default panel-form" id="existent">
                         <div class="panel-body">
                             <div class="row">
-                                <form role="form"  method = "post">
+                                <form role="form"  method="post" class="insertRent">
                                     <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -206,8 +206,12 @@ include("../functions/functions.php");
                                                 </select>
                                             </div>
                                         </div>
+
+                                    </div>
+                                    <hr style="border-color: #d0d0d0; width: 100%;">
+                                    <div class="col-lg-12">
                                         <div class="col-lg-6">
-                                            <div class="form-group">
+                                            <div class="form-group" id="mueble-select">
                                                 <label>Mueble</label>
                                                 <select class="form-control" name="noMueble" required>
                                                     <option value="">--</option>
@@ -232,14 +236,14 @@ include("../functions/functions.php");
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Cantidad</label>
                                                 <input class="form-control" name="cantidad" type="digits" required>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-12">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Precio</label>
@@ -247,21 +251,18 @@ include("../functions/functions.php");
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
-                                    <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Dia de Pago</label>
-                                                <input class="form-control" name="dia" type="digits" required>
-                                            </div>
-                                        </div>
-                                        </div>
-
+                                <div class="add-rent"></div>
+                                <div class="col-xs-12" style="margin: 10px 0;">
                                     <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <button type="submit" name ="insertRent" class="btn btn-default">Guardar</button>
-                                        </div>
+                                        <a id="another-mueble" class="btn btn-primary">Añadir otro mueble</a>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12">
+                                        <button type="submit" name="insertRent" class="btn btn-default">Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
                             </div>
                             <!-- /.row (nested) -->
                         </div>
@@ -314,6 +315,32 @@ include("../functions/functions.php");
                     }
                 });
             });
+            $('#existent #another-mueble').on('click',function(e){
+                e.preventDefault();
+                var muebleSelect = $('#mueble-select').html();
+                $('#existent .add-rent')
+                    .append
+                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
+                        "<div class=\"col-lg-12\">" +
+                            "<div class=\"col-lg-6\">" +
+                                    muebleSelect +
+                            "</div>" +
+                            "<div class=\"col-lg-6\">" +
+                                "<div class=\"form-group\">" +
+                                    "<label>Cantidad</label>" +
+                                    "<input class=\"form-control\" name=\"cantidad\" type=\"digits\" required>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"col-lg-12\">" +
+                            "<div class=\"col-lg-6\">" +
+                                "<div class=\"form-group\">" +
+                                    "<label>Precio</label>" +
+                                    "<input class=\"form-control\" name=\"precio\" type=\"number\" required>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>");
+            });
         });
     </script>
 
@@ -332,7 +359,7 @@ include("../functions/functions.php");
         $tupla = "INSERT INTO `cliente` (`noCliente`, `nombre`, `email`, `direccion`, `telefono`, `RFC`) VALUES (NULL, '$nombre', '$email', '$direccion', '$telefono', '$RFC')";
 
         $insert = mysqli_query($enlace, $tupla);
-        
+
 
         if($insert){
             $noCliente = mysqli_insert_id($enlace);
@@ -346,7 +373,7 @@ include("../functions/functions.php");
             $query = "SELECT * FROM mueble where noMueble = $noMueble";
 
             $mueble = mysqli_fetch_array(mysqli_query($enlace, $query));
-            
+
 
             $left = (int)$mueble['cantidad'] - (int)$cantidad;
 
@@ -357,7 +384,7 @@ include("../functions/functions.php");
 
                 $query = "update mueble SET cantidad=$left where noMueble=$noMueble;";
                 $update = mysqli_query($enlace, $query);
-                
+
                 //$insert = mysqli_query($enlace, "INSERT INTO `pago` (`idPago`, `noMueble`, `inicio`, `fin`, `precio) ;
 
                 if($insert && $update){
