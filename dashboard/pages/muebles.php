@@ -64,17 +64,17 @@ include("../functions/functions.php");
             </div>
             <div class="row">
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="myTable">
                       <tr>
-                          <th>No. Mueble</th>
-                          <th>Modelo</th>
-                          <th>Categoria</th>
-                          <th>Tipo</th>
-                          <th>Costo</th>
-                          <th>Fecha Creado</th>
-                          <th>Desripción</th>
-                          <th>Cantidad</th>
-                          <th>Bodega</th>
+                          <th onclick="sortTable(0)">No. Mueble</th>
+                          <th onclick="sortTable(1)">Modelo</th>
+                          <th onclick="sortTable(2)">Categoria</th>
+                          <th onclick="sortTable(3)">Tipo</th>
+                          <th onclick="sortTable(4)">Costo</th>
+                          <th onclick="sortTable(5)">Fecha Creado</th>
+                          <th onclick="sortTable(6)">Desripción</th>
+                          <th onclick="sortTable(7)">Cantidad</th>
+                          <th onclick="sortTable(8)">Bodega</th>
                           <th>Acciones</th>
                       </tr>
                           <?php

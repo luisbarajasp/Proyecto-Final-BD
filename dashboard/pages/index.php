@@ -199,12 +199,12 @@
                         </div>
                          
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="myTable">
                       <tr>
-                          <th>Cliente</th>
-                          <th>Dia de Pago</th>
-                          <th>Cantidad</th>
-                          <th>Pago</th>
+                          <th onclick="sortTable(0)">Cliente</th>
+                          <th onclick="sortTable(1)" onload="sortTable(1)">Dia de Pago</th>
+                          <th onclick="sortTable(2)">Cantidad</th>
+                          <th >Pago</th>
                       </tr>
                         <?php
            $mes = date("Y-m");
@@ -341,9 +341,10 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    
 </body>
 
 </html>
+
 
  <?php } ?>
