@@ -160,7 +160,7 @@ function getNoClientes(){
 function getNoRenta(){
      global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT DISTINCT noRenta FROM mueble_cliente where fin is NULL");
+    $query = mysqli_query($enlace, "SELECT noRenta FROM mueble_cliente where fin is NULL");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }
@@ -178,6 +178,21 @@ function getDatosPago($noRenta){
         WHERE noRenta =  $noRenta");
      $tupla=mysqli_fetch_array($query);
     return $tupla;
+}
+
+function getRentaPagosPendientes($fecha){
+    global $enlace;
+    $array = array();
+    $query = mysqli_query($enlace, "SELECT            renta.noRenta, cliente.nombre, renta.dia, sum(renta.total) as total
+                                    FROM              cliente
+                                    NATURAL JOIN      renta
+                                    NATURAL LEFT JOIN pago
+                                    WHERE             pago.idPago IS NULL AND DATE_FORMAT(dia, '%m-%d') > DATE_FORMAT('2017-04-25', '%m-%d')
+                                    group by (renta.noRenta);");
+    while ($tupla=mysqli_fetch_array($query)){
+        $array[] = $tupla;
+    }
+    return $array;
 }
 
 function getPagos($fecha, $noRenta){
@@ -203,12 +218,14 @@ function getDatosRentas(){
      $array = array();
     $query = mysqli_query($enlace, "SELECT
         noRenta, nombre, modelo, inicio, precio FROM
+        renta
+        NATURAL JOIN
         cliente
         NATURAL JOIN
         mueble_cliente
         NATURAL JOIN
         mueble
-        WHERE fin is NULL");
+        WHERE renta.fin is NULL");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }

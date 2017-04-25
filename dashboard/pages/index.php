@@ -197,7 +197,7 @@
                         <div class="panel-heading">
                             <i class="fa fa-money fa-fw"></i> Pagos de las rentas este mes
                         </div>
-                         
+
                 <div class="table-responsive">
                     <table class="table table-hover" id="myTable">
                       <tr>
@@ -207,26 +207,39 @@
                           <th >Pago</th>
                       </tr>
                         <?php
-           $mes = date("Y-m");
-            $rentas = getNoRenta();
-            foreach ($rentas as $renta) {
-            if (!getPagos($mes, $renta['noRenta'])){
-                $info = getDatosPago($renta['noRenta']);
-                                $noRenta = $renta['noRenta'];
-                                $nombre = $info['nombre'];
-                                $dia= $info['dia'];
-                                $cantidad = $info['cantidad'];
-                                echo "<tr>";
-                                echo "<td>$nombre</td>";
-                                echo "<td>$dia</td>";
-                                echo "<td>$cantidad</td>";
-                                echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Eliminar</a></td>";
-                                echo "</tr>";
-                
-            }
-            }
-          
-        ?>
+                            // 5 dias es deciar ya va a vencer
+                            $fecha = date("Y-m-d", strtotime("-5 days", strtotime(date("Y-m-d"))));
+                            /*$rentas = getNoRenta();
+                            foreach ($rentas as $renta) {
+                                if (!getPagos($mes, $renta['noRenta'])){
+                                    $info = getDatosPago($renta['noRenta']);
+                                    $noRenta = $renta['noRenta'];
+                                    $nombre = $info['nombre'];
+                                    $dia = $info['dia'];
+                                    $cantidad = $info['cantidad'];
+                                    echo "<tr>";
+                                    echo "<td>$nombre</td>";
+                                    echo "<td>$dia</td>";
+                                    echo "<td>$cantidad</td>";
+                                    echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Eliminar</a></td>";
+                                    echo "</tr>";
+
+                                }
+                            }*/
+                            $rentasPendientes = getRentaPagosPendientes($fecha);
+                            foreach ($rentasPendientes as $renta) {
+                                    $noRenta = $renta['noRenta'];
+                                    $nombre = $renta['nombre'];
+                                    $dia = $renta['dia'];
+                                    $cantidad = $renta['total'];
+                                    echo "<tr>";
+                                    echo "<td>$nombre</td>";
+                                    echo "<td>$dia</td>";
+                                    echo "<td>$cantidad</td>";
+                                    echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Eliminar</a></td>";
+                                    echo "</tr>";
+                            }
+                        ?>
                        </table>
                 </div>
             </div>
@@ -238,7 +251,7 @@
                     </div>
                 </div>
             </div>
-       
+
         <!-- /#page-wrapper -->
 
     </div>
@@ -342,7 +355,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-    
+
 </body>
 
 </html>
