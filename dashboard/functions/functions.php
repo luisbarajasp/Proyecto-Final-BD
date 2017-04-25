@@ -12,183 +12,81 @@
     date_default_timezone_set('America/Mexico_City');
 //Gets
 function getMuebles(){
-
 	global $enlace;
-
     $array = array();
-
-	$muebles = "select * from mueble ";
-
-	$query = mysqli_query($enlace, $muebles);
+	$query = mysqli_query($enlace, "select * from mueble ");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noMueble = $tupla['noMueble'];
-		$modelo = $tupla['modelo'];
-        $categoria = $tupla['categoria'];
-        $tipo = $tupla['tipo'];
-        $costo = $tupla['costo'];
-        $fecha = $tupla['fecha'];
-        $descripcion = $tupla['descripcion'];
-        $cantidad = $tupla['cantidad'];*/
-
         $array[] = $tupla;
-
 	}
 
     return $array;
 }
 
 function getClientes(){
-
 	global $enlace;
-
     $array = array();
-
-	$clientes = "SELECT * FROM `cliente`";
-
-	$query = mysqli_query($enlace, $clientes);
+	$query = mysqli_query($enlace, "SELECT * FROM `cliente`");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noCliente = $tupla['noCliente'];
-		$nombre = $tupla['nombre'];
-        $email= $tupla['email'];
-        $direccion = $tupla['direccion'];
-        $telefono = $tupla['telefono'];
-        $RFC = $tupla['RFC'];*/
-
         $array[] = $tupla;
-
 	}
-
     return $array;
-
 }
 
 function getBodegas(){
-
 	global $enlace;
-
     $array = array();
-
-	$bodegas = "select * from bodega ";
-
-	$query = mysqli_query($enlace, $bodegas);
-
+	$query = mysqli_query($enlace, "select * from bodega ");
+    
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noBodega = $tupla['NoBodega'];
-        $nombre = $tupla['nombre'];
-		$ubicacion = $tupla['ubicacion'];*/
-
         $array[] = $tupla;
-
     }
-
     return $array;
 }
 
 function getMuebleClientes($cliente){
     global $enlace;
-
     $array = array();
-
-	$muebleClientes = "select * from mueble_cliente WHERE noCliente = $cliente ";
-
-	$query = mysqli_query($enlace, $muebleClientes);
+	$query = mysqli_query($enlace, "select * from mueble_cliente WHERE noCliente = $cliente ");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noMueble = $tupla['NoMueble'];
-        $noCliente= $tupla['noCliente'];
-        $inicio = $tupla['inicio'];
-        $fin = $tupla['fin'];
-        $precio = $tupla['precio'];
-		$cantidad = $tupla['cantidadRentada'];*/
-
         $array[] = $tupla;
-
     }
-
     return $array;
 }
 
 function getSearchedMuebles($search = ''){
 
 	global $enlace;
-
     $array = array();
-
-	$muebles = "select * from mueble where modelo LIKE '%$search%' OR categoria LIKE '%$search%' OR tipo LIKE '%$search%'";
-
-	$query = mysqli_query($enlace, $muebles);
+	$query = mysqli_query($enlace, "select * from mueble where modelo LIKE '%$search%' OR categoria LIKE '%$search%' OR tipo LIKE '%$search%'");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noMueble = $tupla['noMueble'];
-		$modelo = $tupla['modelo'];
-        $categoria = $tupla['categoria'];
-        $tipo = $tupla['tipo'];
-        $costo = $tupla['costo'];
-        $fecha = $tupla['fecha'];
-        $descripcion = $tupla['descripcion'];
-        $cantidad = $tupla['cantidad'];*/
-
         $array[] = $tupla;
-
 	}
-
     return $array;
 }
 
 function getSearchedClientes($search = ''){
-
 	global $enlace;
-
     $array = array();
-
-	$clientes = "SELECT * FROM `cliente` where nombre LIKE '%$search%' OR email LIKE '%$search%'";
-
-	$query = mysqli_query($enlace, $clientes);
+	$query = mysqli_query($enlace, "SELECT * FROM `cliente` where nombre LIKE '%$search%' OR email LIKE '%$search%'");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noCliente = $tupla['noCliente'];
-		$nombre = $tupla['nombre'];
-        $email= $tupla['email'];
-        $direccion = $tupla['direccion'];
-        $telefono = $tupla['telefono'];
-        $RFC = $tupla['RFC'];*/
-
         $array[] = $tupla;
-
 	}
-
     return $array;
-
 }
 
 function getSearchedBodegas($search = ''){
-
 	global $enlace;
-
     $array = array();
-
-	$bodegas = "select * from bodega where nombre LIKE '%$search%'";
-
-	$query = mysqli_query($enlace, $bodegas);
+	$query = mysqli_query($enlace,  "select * from bodega where nombre LIKE '%$search%'");
 
 	while ($tupla=mysqli_fetch_array($query)){
-
-		/*$noBodega = $tupla['NoBodega'];
-        $nombre = $tupla['nombre'];
-		$ubicacion = $tupla['ubicacion'];*/
-
         $array[] = $tupla;
-
     }
-
     return $array;
 }
 
@@ -217,9 +115,7 @@ function getNoClientes(){
 
   function getNoRentas(){
        global $enlace;
-       $string = "select count(mueble_cliente.noRenta) as numero from mueble_cliente where mueble_cliente.fin IS NULL;";
-
-       $query = mysqli_query($enlace, $string);
+       $query = mysqli_query($enlace, "select count(mueble_cliente.noRenta) as numero from mueble_cliente where mueble_cliente.fin IS NULL;");
        $tupla = mysqli_fetch_array($query);
 
        return $tupla['numero'];
@@ -228,10 +124,7 @@ function getNoClientes(){
    function getCantidadCategoria(){
        global $enlace;
        $categorias = array();
-
-       $string = "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;";
-
-       $query = mysqli_query($enlace, $string);
+       $query = mysqli_query($enlace, "select mueble.categoria as nombre, SUM(mueble_cliente.cantidadRentada) as cantidad from mueble_cliente natural join mueble WHERE mueble_cliente.fin IS NULL group by mueble.categoria;");
 
        while ($tupla=mysqli_fetch_array($query)){
 
@@ -244,46 +137,31 @@ function getNoClientes(){
 
    function getRentasClientesPorMuebles($search = ''){
        global $enlace;
-
        $array = array();
-
-   	$muebleClientes = "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (cliente.nombre LIKE '%$search%' OR cliente.email LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;";
-
-   	$query = mysqli_query($enlace, $muebleClientes);
+       $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (cliente.nombre LIKE '%$search%' OR cliente.email LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;");
 
    	while ($tupla=mysqli_fetch_array($query)){
-
            $array[] = $tupla;
-
        }
-
        return $array;
    }
 
    function getRentasMuebles($search = ''){
        global $enlace;
-
        $array = array();
-
-   	$muebleClientes = "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;";
-
-   	$query = mysqli_query($enlace, $muebleClientes);
+   	    $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;");
 
    	while ($tupla=mysqli_fetch_array($query)){
-
            $array[] = $tupla;
-
        }
-
        return $array;
    }
 
 function getNoRenta(){
      global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT noRenta FROM mueble_cliente where fin is NULL");
+    $query = mysqli_query($enlace, "SELECT DISTINCT noRenta FROM mueble_cliente where fin is NULL");
      while ($tupla=mysqli_fetch_array($query)){
-         if(checkArray($array, $tupla))
          $array[] = $tupla;
      }
      return $array;
@@ -311,14 +189,6 @@ function getPagos($fecha, $noRenta){
     else return true;
 }
 
-function checkArray($array, $element){
-     foreach ($array as $a){
-            if ($a == $element){
-                return false;
-            }
-        }
-    return true;
-}
 ?>
 
  <script>

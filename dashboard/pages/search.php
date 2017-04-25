@@ -89,14 +89,14 @@
                                     </div>
                                 <?php }else{ ?>
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="myTable">
                                           <tr>
-                                              <th>No. Cliente</th>
-                                              <th>Nombre</th>
-                                              <th>Email</th>
-                                              <th>Dirección</th>
-                                              <th>Teléfono</th>
-                                              <th>RFC</th>
+                                              <th onclick="sortTable(0)">No. Cliente</th>
+                                              <th onclick="sortTable(1)">Nombre</th>
+                                              <th onclick="sortTable(2)">Email</th>
+                                              <th onclick="sortTable(3)">Dirección</th>
+                                              <th onclick="sortTable(4)">Teléfono</th>
+                                              <th onclick="sortTable(5)">RFC</th>
                                               <th>Acciones</th>
                                           </tr>
                                               <?php
@@ -142,12 +142,12 @@
                                     </div>
                                 <?php }else{ ?>
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="myTable">
                                           <tr>
-                                              <th>No. Cliente</th>
-                                              <th>Nombre</th>
-                                              <th>Modelo</th>
-                                              <th>Cantidad</th>
+                                              <th onclick="sortTable(0)">No. Cliente</th>
+                                              <th onclick="sortTable(1)">Nombre</th>
+                                              <th onclick="sortTable(2)">Modelo</th>
+                                              <th onclick="sortTable(3)">Cantidad</th>
                                           </tr>
                                               <?php
 
@@ -192,15 +192,15 @@
                                     </div>
                                 <?php }else{ ?>
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="MyTable">
                                           <tr>
-                                              <th>No. Mueble</th>
-                                              <th>Modelo</th>
-                                              <th>Categoria</th>
-                                              <th>Tipo</th>
-                                              <th>Costo</th>
-                                              <th>Cantidad</th>
-                                              <th>Bodega</th>
+                                              <th onclick="sortTable(0)">No. Mueble</th>
+                                              <th onclick="sortTable(1)">Modelo</th>
+                                              <th onclick="sortTable(2)">Categoria</th>
+                                              <th onclick="sortTable(3)">Tipo</th>
+                                              <th onclick="sortTable(4)">Costo</th>
+                                              <th onclick="sortTable(5)">Cantidad</th>
+                                              <th onclick="sortTable(6)">Bodega</th>
                                               <th>Acciones</th>
                                           </tr>
                                               <?php
@@ -267,12 +267,12 @@
                                     </div>
                                 <?php }else{ ?>
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover" id="MyTable">
                                           <tr>
-                                              <th>No. Cliente</th>
-                                              <th>Nombre</th>
-                                              <th>Modelo</th>
-                                              <th>Cantidad</th>
+                                              <th onclick="sortTable(0)">No. Cliente</th>
+                                              <th onclick="sortTable(1)">Nombre</th>
+                                              <th onclick="sortTable(2)">Modelo</th>
+                                              <th onclick="sortTable(3)">Cantidad</th>
                                           </tr>
                                               <?php
 

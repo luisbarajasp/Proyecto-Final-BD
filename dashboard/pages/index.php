@@ -212,6 +212,7 @@
             foreach ($rentas as $renta) {
             if (!getPagos($mes, $renta['noRenta'])){
                 $info = getDatosPago($renta['noRenta']);
+                                $noRenta = $renta['noRenta'];
                                 $nombre = $info['nombre'];
                                 $dia= $info['dia'];
                                 $cantidad = $info['cantidad'];
@@ -219,7 +220,7 @@
                                 echo "<td>$nombre</td>";
                                 echo "<td>$dia</td>";
                                 echo "<td>$cantidad</td>";
-                                echo "<td><a class='btn btn-danger' href='delete_client.php?id=1' onclick=\"return confirm('¿Estás seguro? ¡También se eliminarán las rentas en las que está!')\">Eliminar</a></td>";
+                                echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Eliminar</a></td>";
                                 echo "</tr>";
                 
             }
