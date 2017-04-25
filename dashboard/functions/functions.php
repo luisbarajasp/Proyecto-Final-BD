@@ -189,6 +189,40 @@ function getPagos($fecha, $noRenta){
     else return true;
 }
 
+function getRentas(){
+    global $enlace;
+    $query = mysqli_query($enlace, "SELECT noRenta FROM pago WHERE fecha LIKE '$fecha%' AND noRenta = $noRenta");
+    $num_rows = mysqli_num_rows($query);
+    if($num_rows == 0)
+     return false;
+    else return true;
+}
+
+function getDatosRentas(){
+    global $enlace;
+     $array = array();
+    $query = mysqli_query($enlace, "SELECT 
+        noRenta, nombre, modelo, inicio, precio FROM
+        cliente
+        NATURAL JOIN
+        mueble_cliente
+        NATURAL JOIN
+        mueble
+        WHERE fin is NULL");   
+     while ($tupla=mysqli_fetch_array($query)){
+         $array[] = $tupla;
+     }
+     return $array;
+}
+
+function getTotalRenta($noRenta){
+      global $enlace;
+    $query = mysqli_query($enlace, "SELECT sum(precio) as total FROM mueble_cliente WHERE noRenta = $noRenta");   
+    $tupla=mysqli_fetch_array($query);
+    return $tupla['total'];
+}
+
+
 ?>
 
  <script>

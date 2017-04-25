@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 include("../functions/functions.php");
@@ -52,53 +51,55 @@ include("../functions/functions.php");
     <div id="wrapper">
 
         <?php include("dashboard_nav.php"); ?>
+        <?php $rentas =getDatosRentas(); ?>
+        <div id="page-wrapper" class="add">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Rentas</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="myTable">
+                      <tr>
+                          <th onclick="sortTable(0)">No. Renta</th>
+                          <th onclick="sortTable(1)">Cliente</th>
+                          <th onclick="sortTable(3)">Desde</th>
+                          <th onclick="sortTable(2)">Mueble</th>
+                          <th onclick="sortTable(3)">Costo</th>
+                          <th onclick="sortTable(4)">Total Renta</th>
+                          <th>Acciones</th>
+                      </tr>
+                          <?php
 
-        <div id="page-wrapper" >
-                    
-                            <!-- /.panel -->
-                    <div class="panel panel-default panel-form">
-                        <div class="panel-body">
-                            <div class="row">
-                                <form role="form"  method = "post">
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <label>Cliente</label>
-                                                <select class="form-control" name="noCliente" required>
-                                                    <option value="">--</option>
-                                                    <?php
+                            foreach ($rentas as $renta) {
+                                $noRenta = $renta['noRenta'];
+                                $nombre = $renta['nombre'];
+                                $modelo= $renta['modelo'];
+                                $inicio = $renta['inicio'];
+                                $precio = $renta['precio'];
+                                $total = getTotalRenta($noRenta);
+                                echo "<tr>";
+                                echo "<td>$noRenta</td>";
+                                echo "<td>$nombre</td>";
+                                echo "<td>$inicio</td>";
+                                echo "<td>$modelo</td>";
+                                echo "<td>$precio</td>";
+                                echo "<td>$total </td>";
+                                echo "<td><a class='btn btn-default' href='edit_client.php?id=$noRenta'>Devolver</a></td>";
+                                echo "</tr>";
+                            }
 
-                                                        $clientes = getClientes();
+                           ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
 
-                                                        foreach ($clientes as $cliente) {
-                                                            $noCliente = $cliente['noCliente'];
-                                                            $nombre = $cliente['nombre'];
-                                                            $email= $cliente['email'];
-
-                                                            echo "<option value='$noCliente'>id: $noCliente / nombre: $nombre / email: $email</option>";
-                                                        }
-
-                                                     ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                   
-
-                                    <div class="col-xs-12">
-                                        <div class="col-xs-12">
-                                            <button type="submit" name ="BuscarRenta" class="btn btn-default">Buscar</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.row (nested) -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    
-                   <!-- jQuery -->
+    <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -141,17 +142,5 @@ include("../functions/functions.php");
 </body>
 
 </html>
-<?php 
-          if(isset($_POST['BuscarRenta'])){
-          $clientes = getMuebleClientes($noCliente); 
-                            foreach ($clientes as $cliente) {
-                                $id = $cliente['noCliente'];
-                                $mueble = $cliente['noMueble'];
-                                echo "<tr>";
-                                echo "<td>$id</td>";
-                                echo "<td>$mueble</td>";
-                            }
-          }
 
-    ?>
 <?php } ?>
