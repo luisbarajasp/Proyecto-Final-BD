@@ -257,7 +257,7 @@
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <i class="fa fa-bookmark fa-fw"></i> Rentas activas encontradas
+                            <i class="fa fa-bookmark fa-fw"></i> Muebles en rentas activas 
                         </div>
                         <div class="panel-body">
                             <div class="row">

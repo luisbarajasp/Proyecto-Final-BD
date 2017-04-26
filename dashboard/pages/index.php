@@ -236,7 +236,7 @@
                                     echo "<td>$nombre</td>";
                                     echo "<td>$dia</td>";
                                     echo "<td>$cantidad</td>";
-                                    echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Eliminar</a></td>";
+                                    echo "<td><a class='btn btn-danger' href='pago.php?id=$noRenta' onclick=\"Confirma el pago')\">Pagado</a></td>";
                                     echo "</tr>";
                             }
                         ?>

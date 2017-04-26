@@ -66,9 +66,8 @@ include("../functions/functions.php");
                           <th onclick="sortTable(0)">No. Renta</th>
                           <th onclick="sortTable(1)">Cliente</th>
                           <th onclick="sortTable(3)">Desde</th>
-                          <th onclick="sortTable(2)">Mueble</th>
                           <th onclick="sortTable(3)">Costo</th>
-                          <th onclick="sortTable(4)">Total Renta</th>
+                          <th onclick="sortTable(4)">Dia de pago</th>
                           <th>Acciones</th>
                       </tr>
                           <?php
@@ -76,18 +75,16 @@ include("../functions/functions.php");
                             foreach ($rentas as $renta) {
                                 $noRenta = $renta['noRenta'];
                                 $nombre = $renta['nombre'];
-                                $modelo= $renta['modelo'];
-                                $inicio = $renta['inicio'];
-                                $precio = $renta['precio'];
-                                $total = getTotalRenta($noRenta);
+                                $desde= $renta['inicio'];
+                                $total = $renta['total'];
+                                $dia = $renta['dia'];
                                 echo "<tr>";
                                 echo "<td>$noRenta</td>";
                                 echo "<td>$nombre</td>";
-                                echo "<td>$inicio</td>";
-                                echo "<td>$modelo</td>";
-                                echo "<td>$precio</td>";
-                                echo "<td>$total </td>";
-                                echo "<td><a class='btn btn-default' href='edit_client.php?id=$noRenta'>Devolver</a></td>";
+                                echo "<td>$desde</td>";
+                                echo "<td>$total</td>";
+                                echo "<td>$dia</td>";
+                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"Confirma el pago')\">Devolver</a>  <a class='btn btn-default' href= '#muebles'><p>Ver muebles</p></a> </td>";
                                 echo "</tr>";
                             }
 

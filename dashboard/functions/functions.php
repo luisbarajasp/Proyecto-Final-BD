@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
+    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
         if($enlace){
         }else{
             die ("no hay conexion");
@@ -149,7 +149,7 @@ function getNoClientes(){
    function getRentasMuebles($search = ''){
        global $enlace;
        $array = array();
-   	    $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND mueble_cliente.fin IS NULL group by mueble.noMueble;");
+   	    $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble natural join renta where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND renta.fin IS NULL group by mueble.noMueble;");
 
    	while ($tupla=mysqli_fetch_array($query)){
            $array[] = $tupla;
@@ -206,18 +206,19 @@ function getPagos($fecha, $noRenta){
 
 function getRentas(){
     global $enlace;
-    $query = mysqli_query($enlace, "SELECT noRenta FROM pago WHERE fecha LIKE '$fecha%' AND noRenta = $noRenta");
+    $query = mysqli_query($enlace, "SELECT noRenta FROM renta");
     $num_rows = mysqli_num_rows($query);
-    if($num_rows == 0)
-     return false;
-    else return true;
+   while ($tupla=mysqli_fetch_array($query)){
+         $array[] = $tupla['noRenta'];
+     }
+     return $array;
 }
 
 function getDatosRentas(){
     global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT
-        noRenta, nombre, modelo, inicio, precio FROM
+    $query = mysqli_query($enlace, "SELECT distinct
+        noRenta, nombre, inicio, total, dia FROM
         renta
         NATURAL JOIN
         cliente
@@ -225,12 +226,32 @@ function getDatosRentas(){
         mueble_cliente
         NATURAL JOIN
         mueble
-        WHERE renta.fin is NULL");
+        WHERE renta.fin is NULL ");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }
      return $array;
 }
+
+function getMueblesRenta($noRenta){
+    global $enlace;
+     $array = array();
+    $query = mysqli_query($enlace, "SELECT distinct
+        modelo, categoria, tipo, precio FROM
+        renta
+        NATURAL JOIN
+        cliente
+        NATURAL JOIN
+        mueble_cliente
+        NATURAL JOIN
+        mueble
+        WHERE renta.fin is NULL AND noRenta= $noRenta");
+     while ($tupla=mysqli_fetch_array($query)){
+         $array[] = $tupla;
+     }
+     return $array;
+}
+
 
 function getTotalRenta($noRenta){
       global $enlace;
