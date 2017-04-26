@@ -149,11 +149,8 @@ function getNoClientes(){
    function getRentasMuebles($search = ''){
        global $enlace;
        $array = array();
-<<<<<<< HEAD
-   	    $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from mueble_cliente natural join cliente natural join mueble natural join renta where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND renta.fin IS NULL group by mueble.noMueble;");
-=======
+
    	    $query = mysqli_query($enlace, "select cliente.noCliente, cliente.nombre, mueble.modelo, mueble_cliente.cantidadRentada as cantidad from renta natural join mueble_cliente natural join cliente natural join mueble where (mueble.modelo LIKE '%$search%' OR mueble.categoria LIKE '%$search%' OR mueble.tipo LIKE '%$search%') AND renta.fin IS NULL group by mueble.noMueble;");
->>>>>>> 34bbe1899f4758c6c31f051a4d10e3cd7ce1cb9e
 
    	while ($tupla=mysqli_fetch_array($query)){
            $array[] = $tupla;
