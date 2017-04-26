@@ -84,7 +84,7 @@ include("../functions/functions.php");
                                 echo "<td>$desde</td>";
                                 echo "<td>$total</td>";
                                 echo "<td>$dia</td>";
-                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"Confirma el pago')\">Devolver</a>  <a class='btn btn-default' href= '#muebles'><p>Ver muebles</p></a> </td>";
+                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= '#muebles'><p>Ver muebles</p></a> </td>";
                                 echo "</tr>";
                             }
 
