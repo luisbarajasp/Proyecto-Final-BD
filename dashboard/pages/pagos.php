@@ -72,17 +72,17 @@ include("../functions/functions.php");
             </div>
             <div class="row forms">
                 <div class="col-lg-12">
-                 
+
                     <!-- /.panel -->
                     <div class="panel panel-default panel-form" id="cliente">
                         <div class="panel-body">
                             <div class="row">
-                                <form role="form"  method="post" class="porCliente">
+                                <form role="form" class="porCliente">
                                     <div class="col-lg-12">
                                         <div class="col-lg-12">
                                             <div class="form-group">
                                                 <label>Cliente</label>
-                                                <select class="form-control" name="noCliente" required>
+                                                <select class="form-control" name="id" required onchange="showUser(this.value)">
                                                     <option value="">--</option>
                                                     <?php
 
@@ -100,15 +100,13 @@ include("../functions/functions.php");
                                                 </select>
                                             </div>
                                         </div>
-                                <div class="col-xs-12">
-                                    <div class="col-xs-12">
-                                        <button type="submit" name="porCliente" id = class="btn btn-default">Buscar</button>
                                     </div>
-                                </div>
-                            </div>
-                            </form>
+                                </form>
                             </div>
                             <!-- /.row (nested) -->
+                            <div class="row">
+                                <div class="table-responsive" id="show-results"></div>
+                            </div>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -142,6 +140,27 @@ include("../functions/functions.php");
 
 </html>
  <script type="text/javascript">
+         function showUser(str) {
+            if (str == "") {
+                document.getElementById("show-results").innerHTML = "";
+                return;
+            } else {
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("show-results").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET","get_pagos.php?q="+str,true);
+                xmlhttp.send();
+            }
+        }
         $(function(){
             $('.form-link').on('click',function(){
                 id = $(this).find('a').attr("href");
@@ -162,79 +181,7 @@ include("../functions/functions.php");
                     }
                 });
             });
-            $('#existent #another-mueble').on('click',function(e){
-                e.preventDefault();
-                var muebleSelect = $('#existent #mueble-select').html();
-                $('#existent .add-rent')
-                    .append
-                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
-                        "<div class=\"col-lg-12\">" +
-                            "<div class=\"col-lg-6\">" +
-                                    muebleSelect +
-                            "</div>" +
-                            "<div class=\"col-lg-6\">" +
-                                "<div class=\"form-group\">" +
-                                    "<label>Cantidad</label>" +
-                                    "<input class=\"form-control\" name=\"cantidad[]\" type=\"digits\" required>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>" +
-                        "<div class=\"col-lg-12\">" +
-                            "<div class=\"col-lg-6\">" +
-                                "<div class=\"form-group\">" +
-                                    "<label>Precio</label>" +
-                                    "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>");
-            });
-            $('#new #another-mueble').on('click',function(e){
-                e.preventDefault();
-                var muebleSelect = $('#new #mueble-select').html();
-                $('#new .add-rent')
-                    .append
-                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
-                        "<div class=\"col-lg-12\">" +
-                            "<div class=\"col-lg-6\">" +
-                                    muebleSelect +
-                            "</div>" +
-                            "<div class=\"col-lg-6\">" +
-                                "<div class=\"form-group\">" +
-                                    "<label>Cantidad</label>" +
-                                    "<input class=\"form-control\" name=\"cantidad[]\" type=\"digits\" required>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>" +
-                        "<div class=\"col-lg-12\">" +
-                            "<div class=\"col-lg-6\">" +
-                                "<div class=\"form-group\">" +
-                                    "<label>Precio</label>" +
-                                    "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
-                                "</div>" +
-                            "</div>" +
-                        "</div>");
-            });
         });
     </script>
-
-<?php
-    if(isset($_POST['porCliente'])){
-		$noCliente =$_POST['noCliente'];
-        $query = mysqli_query($enlace, "Select noRenta, fecha, total From renta NATURAL JOIN pago WHERE noCliente =$noCliente");
-        while ($tupla=mysqli_fetch_array($query)){
-                                $noRenta = $tupla['noRenta'];
-                                $fecha = $tupla['nombre'];
-                                $total= $total['inicio'];
-                                echo "<tr>";
-                                echo "<td>$noRenta</td>";
-                                echo "<td>$fecha</td>";
-                                echo "<td>$total</td>";
-                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= '#muebles'><p>Ver muebles</p></a> </td>";
-                                echo "</tr>";
-     }
-
-
-    }
-?>
 
 <?php } ?>

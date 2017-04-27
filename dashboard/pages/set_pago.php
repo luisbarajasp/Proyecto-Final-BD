@@ -11,7 +11,7 @@ include("../functions/functions.php");
     else {
 
         if (isset($_GET['id']) && is_numeric($_GET['id'])){
-            $created_at = date("Y-m-d");
+            $created_at = date("Y-m-d H:i:s");
             $noRenta = $_GET['id'];
             $result = mysqli_query($enlace, "INSERT INTO `pago` (`fecha`, `noRenta`) VALUES ('$created_at', '$noRenta')");
 
@@ -30,4 +30,3 @@ include("../functions/functions.php");
  ?>
 
  <?php
-

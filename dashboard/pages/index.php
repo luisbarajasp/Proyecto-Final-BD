@@ -236,7 +236,7 @@
                                     echo "<td>$nombre</td>";
                                     echo "<td>" . date("d/m/Y", strtotime($dia)) . "</td>";
                                     echo "<td>" . number_format($cantidad) . "</td>";
-                                    echo "<td><a class='btn btn-danger' href='delete_pago.php?id=$noRenta' onclick=\"return confirm('Confirma el pago')\">Pagado</a></td>";
+                                    echo "<td><a class='btn btn-danger' href='set_pago.php?id=$noRenta' onclick=\"return confirm('Confirma el pago')\">Pagado</a></td>";
                                     echo "</tr>";
 
                             }
