@@ -70,7 +70,7 @@
                     <a href="rentas.php"><i class="fa fa-bookmark fa-fw"></i> Rentas</a>
                 </li>
                  <li>
-                    <a href="pago.php"><i class="fa fa-money fa-fw"></i> Pagos</a>
+                    <a href="pagos.php"><i class="fa fa-money fa-fw"></i> Pagos</a>
                 </li>
             </ul>
         </div>
