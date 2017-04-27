@@ -51,7 +51,10 @@ include("../functions/functions.php");
     <div id="wrapper">
 
         <?php include("dashboard_nav.php"); ?>
-        <?php $rentas =getDatosRentas(); ?>
+        <?php
+            $rentas = getDatosRentasActivas();
+            $rentasTerminadas = getDatosRentasTerminadas();
+        ?>
         <div id="page-wrapper" class="add">
             <div class="row">
                 <div class="col-lg-12">
@@ -60,36 +63,103 @@ include("../functions/functions.php");
                 <!-- /.col-lg-12 -->
             </div>
             <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="myTable">
-                      <tr>
-                          <th onclick="sortTable(0)">No. Renta</th>
-                          <th onclick="sortTable(1)">Cliente</th>
-                          <th onclick="sortTable(3)">Desde</th>
-                          <th onclick="sortTable(3)">Costo</th>
-                          <th onclick="sortTable(4)">Dia de pago</th>
-                          <th>Acciones</th>
-                      </tr>
-                          <?php
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-users fa-fw"></i> Activas
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <?php if(empty($rentas)) {?>
+                                <div class="is-empty">
+                                    <h1><i class="fa fa-asterisk" aria-hidden="true"></i> No se encontraron rentas activas</h1>
+                                </div>
+                            <?php }else{ ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="myTable">
+                                      <tr>
+                                          <th onclick="sortTable(0)">No. Renta</th>
+                                          <th onclick="sortTable(1)">Cliente</th>
+                                          <th onclick="sortTable(3)">Desde</th>
+                                          <th onclick="sortTable(3)">Costo</th>
+                                          <th onclick="sortTable(4)">Dia de pago</th>
+                                          <th>Acciones</th>
+                                      </tr>
+                                          <?php
 
-                            foreach ($rentas as $renta) {
-                                $noRenta = $renta['noRenta'];
-                                $nombre = $renta['nombre'];
-                                $desde= $renta['inicio'];
-                                $total = $renta['total'];
-                                $dia = $renta['dia'];
-                                echo "<tr>";
-                                echo "<td>$noRenta</td>";
-                                echo "<td>$nombre</td>";
-                                echo "<td>$desde</td>";
-                                echo "<td>$total</td>";
-                                echo "<td>$dia</td>";
-                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= '#muebles'><p>Ver muebles</p></a> </td>";
-                                echo "</tr>";
-                            }
+                                            foreach ($rentas as $renta) {
+                                                $noRenta = $renta['noRenta'];
+                                                $nombre = $renta['nombre'];
+                                                $desde= $renta['inicio'];
+                                                $total = $renta['total'];
+                                                $dia = $renta['dia'];
+                                                echo "<tr>";
+                                                echo "<td>$noRenta</td>";
+                                                echo "<td>$nombre</td>";
+                                                echo "<td>" . date("d M Y", strtotime($desde)) . "</td>";
+                                                echo "<td>" . number_format($total) . "</td>";
+                                                echo "<td>" . date("d M", strtotime($dia)) . "</td>";
+                                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= 'ver_renta.php?id=$noRenta'><p>Ver muebles</p></a> </td>";
+                                                echo "</tr>";
+                                            }
 
-                           ?>
-                    </table>
+                                           ?>
+                                    </table>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-users fa-fw"></i> Terminadas
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="row">
+                            <?php if(empty($rentasTerminadas)) {?>
+                                <div class="is-empty">
+                                    <h1><i class="fa fa-asterisk" aria-hidden="true"></i> No se encontraron rentas terminadas</h1>
+                                </div>
+                            <?php }else{ ?>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="myTable">
+                                      <tr>
+                                          <th onclick="sortTable(0)">No. Renta</th>
+                                          <th onclick="sortTable(1)">Cliente</th>
+                                          <th onclick="sortTable(3)">Desde</th>
+                                          <th onclick="sortTable(3)">Costo</th>
+                                          <th onclick="sortTable(4)">Dia de pago</th>
+                                          <th>Acciones</th>
+                                      </tr>
+                                          <?php
+
+                                            foreach ($rentasTerminadas as $renta) {
+                                                $noRenta = $renta['noRenta'];
+                                                $nombre = $renta['nombre'];
+                                                $desde= $renta['inicio'];
+                                                $total = $renta['total'];
+                                                $dia = $renta['dia'];
+                                                echo "<tr>";
+                                                echo "<td>$noRenta</td>";
+                                                echo "<td>$nombre</td>";
+                                                echo "<td>$desde</td>";
+                                                echo "<td>$total</td>";
+                                                echo "<td>$dia</td>";
+                                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= 'ver_renta.php?id=$noRenta'><p>Ver muebles</p></a> </td>";
+                                                echo "</tr>";
+                                            }
+
+                                           ?>
+                                    </table>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
                 </div>
             </div>
         </div>

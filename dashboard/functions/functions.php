@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
+    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
         if($enlace){
         }else{
             die ("no hay conexion");
@@ -215,19 +215,30 @@ function getRentas(){
      return $array;
 }
 
-function getDatosRentas(){
+function getDatosRentasActivas(){
     global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT distinct
+    $query = mysqli_query($enlace, "SELECT
         noRenta, nombre, inicio, total, dia FROM
         renta
         NATURAL JOIN
         cliente
+        WHERE renta.fin is NULL");
+     while ($tupla=mysqli_fetch_array($query)){
+         $array[] = $tupla;
+     }
+     return $array;
+}
+
+function getDatosRentasTerminadas(){
+    global $enlace;
+     $array = array();
+    $query = mysqli_query($enlace, "SELECT
+        noRenta, nombre, inicio, total, dia FROM
+        renta
         NATURAL JOIN
-        mueble_cliente
-        NATURAL JOIN
-        mueble
-        WHERE renta.fin is NULL ");
+        cliente
+        WHERE renta.fin is NOT NULL ");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }
@@ -237,16 +248,15 @@ function getDatosRentas(){
 function getMueblesRenta($noRenta){
     global $enlace;
      $array = array();
-    $query = mysqli_query($enlace, "SELECT distinct
-        modelo, categoria, tipo, precio FROM
+    $query = mysqli_query($enlace, "SELECT
+        mueble.noMueble, mueble.modelo, mueble.categoria, mueble.tipo, mueble_cliente.precio, mueble_cliente.cantidadRentada as cantidad FROM
         renta
-        NATURAL JOIN
-        cliente
         NATURAL JOIN
         mueble_cliente
         NATURAL JOIN
         mueble
-        WHERE renta.fin is NULL AND noRenta= $noRenta");
+        WHERE noRenta= $noRenta
+        group by mueble.noMueble");
      while ($tupla=mysqli_fetch_array($query)){
          $array[] = $tupla;
      }
