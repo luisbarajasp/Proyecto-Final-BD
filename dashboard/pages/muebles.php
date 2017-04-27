@@ -112,7 +112,7 @@ include("../functions/functions.php");
                                 echo "<td>$modelo</td>";
                                 echo "<td>$categoria</td>";
                                 echo "<td>$tipo</td>";
-                                echo "<td>$costo</td>";
+                                echo "<td>" . number_format($costo) . "</td>";
                                 echo "<td>" . date("d/m/Y",strtotime($fecha)) . "</td>";
                                 echo "<td>$descripcion</td>";
                                 echo "<td>$cantidad</td>";

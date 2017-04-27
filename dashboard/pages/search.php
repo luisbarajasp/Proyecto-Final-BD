@@ -238,8 +238,8 @@
                                                     echo "<td>$modelo</td>";
                                                     echo "<td>$categoria</td>";
                                                     echo "<td>$tipo</td>";
-                                                    echo "<td>$costo</td>";
-                                                    echo "<td>$cantidad</td>";
+                                                    echo "<td>" . number_format($costo) . "</td>";
+                                                    echo "<td>" . number_format($cantidad) . "</td>";
                                                     echo "<td>$bodega_name</td>";
                                                     echo "<td><a class='btn btn-default' href='edit_mueble.php?id=$noMueble'>Editar</a><a class='btn btn-danger' href='delete_mueble.php?id=$noMueble' onclick=\"return confirm('¿Estás seguro? ¡También se eliminarán las rentas en las que está!')\">Eliminar</a></td>";
                                                     echo "</tr>";
@@ -257,7 +257,7 @@
                 <div class="col-lg-4">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <i class="fa fa-bookmark fa-fw"></i> Muebles en rentas activas 
+                            <i class="fa fa-bookmark fa-fw"></i> Muebles en rentas activas
                         </div>
                         <div class="panel-body">
                             <div class="row">

@@ -88,9 +88,9 @@ include("../functions/functions.php");
                                 <ul class="rent-details">
                                     <li>No. Renta: <?php echo $noRenta ?></li>
                                     <li>Cliente: <?php echo $nombre ?></li>
-                                    <li>Desde: <?php echo date("d M Y", strtotime($desde)) ?></li>
+                                    <li>Desde: <?php echo date("d/m/Y", strtotime($desde)) ?></li>
                                     <li>Costo: <?php echo number_format($total) ?></li>
-                                    <li>Día de pago: <?php echo date("d M", strtotime($desde)) ?></li>
+                                    <li>Día de pago: <?php echo date("d/m", strtotime($desde)) ?></li>
                                 </ul>
                             </div>
                             </div>
