@@ -513,3 +513,29 @@ table.dataTable thead .sorting:after {
 .rent-details li{
     font-size: 14px;
 }
+
+.mueble-form-container{
+    position: relative;
+    overflow: auto;
+    clear: both;
+}
+
+.mueble-form-container .remove{
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 25px;
+    padding: 5px;
+    border: 1px solid #D0D0D0;
+    color: #D0D0D0;
+    overflow: auto;
+    z-index: 2;
+}
+
+.mueble-form-container .remove:hover{
+    background: #D0D0D0;
+    color: black;
+    cursor: pointer;
+}

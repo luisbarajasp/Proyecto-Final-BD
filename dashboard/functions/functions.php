@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
+    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
         if($enlace){
         }else{
             die ("no hay conexion");

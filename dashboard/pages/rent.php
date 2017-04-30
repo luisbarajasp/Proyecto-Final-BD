@@ -128,46 +128,48 @@ include("../functions/functions.php");
                                             </div>
                                         </div>
                                     </div>
-                                    <hr style="border-color: #d0d0d0; width: 100%;">
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-group" id="mueble-select">
-                                                <label>Mueble</label>
-                                                <select class="form-control" name="noMueble[]" required>
-                                                    <option value="">--</option>
-                                                    <?php
+                                    <div class="mueble-form-container">
+                                        <hr style="border-color: #d0d0d0; width: 100%;">
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-6">
+                                                <div class="form-group" id="mueble-select">
+                                                    <label>Mueble</label>
+                                                    <select class="form-control" name="noMueble[]" required>
+                                                        <option value="">--</option>
+                                                        <?php
 
-                                                        $muebles = getMuebles();
+                                                            $muebles = getMuebles();
 
-                                                        foreach ($muebles as $mueble) {
-                                                            $noMueble = $mueble['noMueble'];
-                                                            $modelo = $mueble['modelo'];
-                                                            $categoria = $mueble['categoria'];
-                                                            $cantidad = $mueble['cantidad'];
+                                                            foreach ($muebles as $mueble) {
+                                                                $noMueble = $mueble['noMueble'];
+                                                                $modelo = $mueble['modelo'];
+                                                                $categoria = $mueble['categoria'];
+                                                                $cantidad = $mueble['cantidad'];
 
-                                                            if((int)$cantidad > 0){
-                                                                echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
-                                                            }else{
-                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
+                                                                if((int)$cantidad > 0){
+                                                                    echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                                }else{
+                                                                    echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
+                                                                }
                                                             }
-                                                        }
 
-                                                     ?>
-                                                </select>
+                                                         ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Cantidad</label>
+                                                    <input class="form-control" name="cantidad[]" type="digits" required>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad[]" type="digits" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Precio</label>
-                                                <input class="form-control" name="precio[]" type="number" required>
+                                        <div class="col-lg-12">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Precio</label>
+                                                    <input class="form-control" name="precio[]" type="number" required>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -222,49 +224,52 @@ include("../functions/functions.php");
                                             </div>
                                         </div>
                                     </div>
-                                    <hr style="border-color: #d0d0d0; width: 100%;">
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-group" id="mueble-select">
-                                                <label>Mueble</label>
-                                                <select class="form-control" name="noMueble[]" required>
-                                                    <option value="">--</option>
-                                                    <?php
+                                     <div class="mueble-form-container">
+                                         <hr style="border-color: #d0d0d0; width: 100%;">
+                                         <div class="col-lg-12">
+                                             <div class="col-lg-6">
+                                                 <div class="form-group" id="mueble-select">
+                                                     <label>Mueble</label>
+                                                     <select class="form-control" name="noMueble[]" required>
+                                                         <option value="">--</option>
+                                                         <?php
 
-                                                        $muebles = getMuebles();
+                                                             $muebles = getMuebles();
 
-                                                        foreach ($muebles as $mueble) {
-                                                            $noMueble = $mueble['noMueble'];
-                                                            $modelo = $mueble['modelo'];
-                                                            $categoria = $mueble['categoria'];
-                                                            $cantidad = $mueble['cantidad'];
+                                                             foreach ($muebles as $mueble) {
+                                                                 $noMueble = $mueble['noMueble'];
+                                                                 $modelo = $mueble['modelo'];
+                                                                 $categoria = $mueble['categoria'];
+                                                                 $cantidad = $mueble['cantidad'];
 
-                                                            if((int)$cantidad > 0){
-                                                                echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
-                                                            }else{
-                                                                echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
-                                                            }
-                                                        }
+                                                                 if((int)$cantidad > 0){
+                                                                     echo "<option value='$noMueble'>id: $noMueble / modelo: $modelo / categoria: $categoria</option>";
+                                                                 }else{
+                                                                     echo "<option value='$noMueble' disabled>id: $noMueble / modelo: $modelo / categoria: $categoria. No hay existencias</option>";
+                                                                 }
+                                                             }
 
-                                                     ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Cantidad</label>
-                                                <input class="form-control" name="cantidad[]" type="digits" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Precio</label>
-                                                <input class="form-control" name="precio[]" type="number" required>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                          ?>
+                                                     </select>
+                                                 </div>
+                                             </div>
+                                             <div class="col-lg-6">
+                                                 <div class="form-group">
+                                                     <label>Cantidad</label>
+                                                     <input class="form-control" name="cantidad[]" type="digits" required>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <div class="col-lg-12">
+                                             <div class="col-lg-6">
+                                                 <div class="form-group">
+                                                     <label>Precio</label>
+                                                     <input class="form-control" name="precio[]" type="number" required>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
                                 <div class="add-rent"></div>
                                 <div class="col-xs-12" style="margin: 10px 0;">
                                     <div class="col-xs-12">
@@ -334,8 +339,13 @@ include("../functions/functions.php");
                 var muebleSelect = $('#existent #mueble-select').html();
                 $('#existent .add-rent')
                     .append
-                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
-                        "<div class=\"col-lg-12\">" +
+                    ("<div class=\"mueble-form-container\">" +
+                        "<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
+                        "<div class=\"remove\">" +
+                            "<i class=\"fa fa-times\"></i>" +
+                        "</div>" +
+                        "<div class=\"col-lg-12 mueble-form-container\">" +
+
                             "<div class=\"col-lg-6\">" +
                                     muebleSelect +
                             "</div>" +
@@ -352,6 +362,7 @@ include("../functions/functions.php");
                                     "<label>Precio</label>" +
                                     "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
                                 "</div>" +
+                            "</div>" +
                             "</div>" +
                         "</div>");
             });
@@ -360,8 +371,13 @@ include("../functions/functions.php");
                 var muebleSelect = $('#new #mueble-select').html();
                 $('#new .add-rent')
                     .append
-                    ("<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
-                        "<div class=\"col-lg-12\">" +
+                    ("<div class=\"mueble-form-container\">" +
+                        "<hr style=\"border-color: #d0d0d0; width: 100%;\">" +
+                        "<div class=\"remove\">" +
+                            "<i class=\"fa fa-times\"></i>" +
+                        "</div>" +
+                        "<div class=\"col-lg-12 mueble-form-container\">" +
+
                             "<div class=\"col-lg-6\">" +
                                     muebleSelect +
                             "</div>" +
@@ -379,9 +395,14 @@ include("../functions/functions.php");
                                     "<input class=\"form-control\" name=\"precio[]\" type=\"number\" required>" +
                                 "</div>" +
                             "</div>" +
+                            "</div>" +
                         "</div>");
             });
+            $('.add-rent').on('click', '.remove' ,function(){
+                $(this).closest('.mueble-form-container').remove();
+            });
         });
+
     </script>
 
 </body>
