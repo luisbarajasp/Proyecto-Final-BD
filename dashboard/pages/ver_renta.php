@@ -90,7 +90,7 @@ include("../functions/functions.php");
                                     <li>Cliente: <?php echo $nombre ?></li>
                                     <li>Desde: <?php echo date("d/m/Y", strtotime($desde)) ?></li>
                                     <li>Costo: <?php echo number_format($total) ?></li>
-                                    <li>Día de pago: <?php echo date("d/m", strtotime($desde)) ?></li>
+                                    <li>Día de pago: <?php echo date("d", strtotime($desde)) ?></li>
                                 </ul>
                             </div>
                             </div>

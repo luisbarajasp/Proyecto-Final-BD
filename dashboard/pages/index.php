@@ -208,7 +208,7 @@
                       </tr>
                         <?php
                             // 5 dias es deciar ya va a vencer
-                            $fecha = date("Y-m-d", strtotime("-5 days", strtotime(date("Y-m-d"))));
+                            $fecha = date("Y-m-d", strtotime("+5 days", strtotime(date("Y-m-d"))));
                             /*$rentas = getNoRenta();
                             foreach ($rentas as $renta) {
                                 if (!getPagos($mes, $renta['noRenta'])){

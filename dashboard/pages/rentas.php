@@ -96,9 +96,9 @@ include("../functions/functions.php");
                                                 echo "<tr>";
                                                 echo "<td>$noRenta</td>";
                                                 echo "<td>$nombre</td>";
-                                                echo "<td>" . date("d/m/Y", strtotime($desde)) . "</td>";
+                                                echo "<td>". date("d/m/y", strtotime($desde)) . "</td>";
                                                 echo "<td>" . number_format($total) . "</td>";
-                                                echo "<td>" . date("d/m", strtotime($dia)) . "</td>";
+                                                echo "<td>" . date("d", strtotime($dia)) . "</td>";
                                                 echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= 'ver_renta.php?id=$noRenta'><p>Ver muebles</p></a> </td>";
                                                 echo "</tr>";
                                             }
@@ -146,10 +146,10 @@ include("../functions/functions.php");
                                                 echo "<tr>";
                                                 echo "<td>$noRenta</td>";
                                                 echo "<td>$nombre</td>";
-                                                echo "<td>$desde</td>";
-                                                echo "<td>$total</td>";
-                                                echo "<td>$dia</td>";
-                                                echo "<td><a class='btn btn-danger' href='delete_renta.php?id=$noRenta' onclick=\"return confirm('Confirma la terminacion de la renta')\"> Devolver</a>  <a class='btn btn-default' href= 'ver_renta.php?id=$noRenta'><p>Ver muebles</p></a> </td>";
+                                                echo "<td>". date("d/m/y", strtotime($desde)) . "</td>";
+                                                echo "<td>" . number_format($total) . "</td>";
+                                                echo "<td>" . date("d", strtotime($dia)) . "</td>";
+                                                echo "<td> <a class='btn btn-default' href= 'ver_renta.php?id=$noRenta'><p>Ver muebles</p></a> </td>";
                                                 echo "</tr>";
                                             }
 

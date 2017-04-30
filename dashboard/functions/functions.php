@@ -3,7 +3,7 @@
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 
-    $enlace = mysqli_connect("localhost", "root", "root", "magenta");
+    $enlace = mysqli_connect("127.0.0.1", "root", "", "magenta");
         if($enlace){
         }else{
             die ("no hay conexion");
@@ -188,7 +188,7 @@ function getRentaPagosPendientes($fecha){
                                     FROM              cliente
                                     NATURAL JOIN      renta
                                     NATURAL LEFT JOIN pago
-                                    WHERE             pago.idPago IS NULL AND DATE_FORMAT(dia, '%m-%d') > DATE_FORMAT('2017-04-25', '%m-%d')
+                                    WHERE             pago.idPago IS NULL AND DATE_FORMAT(dia, '%m-%d') < DATE_FORMAT('$fecha', '%m-%d')
                                     group by (renta.noRenta);");
     while ($tupla=mysqli_fetch_array($query)){
         $array[] = $tupla;
