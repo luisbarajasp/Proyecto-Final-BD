@@ -11,6 +11,17 @@
     // Establecer la zona horaria
     date_default_timezone_set('America/Mexico_City');
 //Gets
+function getAdmin(){
+    global $enlace;
+    $array = array();
+    $query = mysqli_query($enlace, "select * from admin ");
+
+	while ($tupla=mysqli_fetch_array($query)){
+        $array[] = $tupla;
+	}
+
+    return $array;
+}
 function getMuebles(){
 	global $enlace;
     $array = array();

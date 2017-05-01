@@ -54,10 +54,8 @@ include("../functions/functions.php");
 
             if($_POST){
                 $usuario = $_POST['usuario'];
-                $contrasena = $_POST['contrasena'];
             }else{
                 $usuario = $user['usuario'];
-                $contrasena = $user['contrasena'];
             }
         ?>
         <div id="page-wrapper" class="add">
@@ -83,7 +81,7 @@ include("../functions/functions.php");
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Contraseña</label>
-                                                <input class="form-control" name="contrasena" type="password" required value="<?php echo $contrasena; ?>">
+                                                <input class="form-control" name="contrasena" type="password" required>
                                             </div>
                                         </div>
                                     </div>
@@ -151,9 +149,11 @@ include("../functions/functions.php");
 <?php
      if(isset($_POST['updateData'])){
         $usuario = $_POST['usuario'];
-		$contrasena = $_POST['contrasena'];
+		$password = $_POST['contrasena'];
 
-        $tupla = "UPDATE `bodega` SET `usuario`='$usuario', `contrasena`='$contrasena' where usuario = $usuario";
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $tupla = "UPDATE `admin` SET `usuario`='$usuario', `contrasena`='$hashed_password' where `usuario` = '$usuario'";
         $update = mysqli_query($enlace, $tupla);
         if($update){
             echo "<div class='alert alert-success' role='alert'>Datos Actualizados!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

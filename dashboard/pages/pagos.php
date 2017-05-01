@@ -60,7 +60,7 @@ include("../functions/functions.php");
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-xs-12 form-links">
                     <div class="col-sm-6 col-xs-12 form-link">
                         <a href="#cliente"><p>Por cliente</p></a>
@@ -69,12 +69,12 @@ include("../functions/functions.php");
                         <a href="#fecha"><p>Por fecha</p></a>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="row forms">
                 <div class="col-lg-12">
 
                     <!-- /.panel -->
-                    <div class="panel panel-default panel-form" id="cliente">
+                    <div class="panel panel-default" id="cliente">
                         <div class="panel-body">
                             <div class="row">
                                 <form role="form" class="porCliente">
@@ -98,75 +98,6 @@ include("../functions/functions.php");
 
                                                      ?>
                                                 </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.row (nested) -->
-                            <div class="row">
-                                <div class="table-responsive" id="show-results"></div>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <div class="panel panel-default panel-form" id="fecha">
-                        <div class="panel-body">
-                            <div class="row">
-                                <form role="form" class="porCliente" onsubmit="showPayDate()">
-                                    <div class="col-lg-12">
-                                        <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <label>Fecha</label>
-
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <select class="form-control" name="day" id="day" required>
-                                                        <option value="">Dia</option>
-                                                        <?php
-
-                                                            for ($i=1; $i < 32; $i++) {
-                                                                if($i < 10){
-                                                                    $e = "0" . $i;
-                                                                }else{
-                                                                    $e = $i;
-                                                                }
-                                                                echo "<option value='$e'>$e</option>";
-                                                            }
-
-                                                         ?>
-                                                    </select>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <select class="form-control" name="month" id="month" required>
-                                                        <option value="">Mes</option>
-                                                        <?php
-
-                                                        for ($i=1; $i < 13; $i++) {
-                                                            if($i < 10){
-                                                                $e = "0" . $i;
-                                                            }else{
-                                                                $e = $i;
-                                                            }
-                                                            echo "<option value='$e'>$e</option>";
-                                                        }
-
-                                                         ?>
-                                                    </select>
-                                                </div>
-                                                <div class="col-xs-3">
-                                                    <select class="form-control" name="year" id="year" required onchange="showPayDate()">
-                                                        <option value="">Año</option>
-                                                        <?php
-
-                                                        for ($i=2017; $i < 2030; $i++) {
-                                                            echo "<option value='$i'>$i</option>";
-                                                        }
-
-                                                         ?>
-                                                    </select>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
