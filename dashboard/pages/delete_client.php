@@ -13,9 +13,14 @@ include("../functions/functions.php");
         if (isset($_GET['id']) && is_numeric($_GET['id'])){
             $noCliente = $_GET['id'];
 
-            $querymc = "DELETE FROM mueble_cliente where noCliente = $noCliente";
+            $rentas = mysqli_fetch_array(mysqli_query($enlace, "SELECT noRenta FROM renta where noCliente = $noCliente"));
 
-            $resultmc = mysqli_query($enlace, $querymc);
+            foreach ($rentas as $renta) {
+                $noRenta = $renta['noRenta'];
+                $resultmc = mysqli_query($enlace, "DELETE FROM mueble_cliente where noRenta = $noRenta");
+
+                $resultmc = mysqli_query($enlace, "DELETE FROM renta where noRenta = $noRenta");
+            }
 
             $query = "DELETE FROM cliente where noCliente = $noCliente";
 
